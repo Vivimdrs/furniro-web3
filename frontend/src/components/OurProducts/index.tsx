@@ -1,8 +1,15 @@
 import OurProductsCard from "../OurProductsCard";
 import seedProducts from "../../db/Seed/Seed.json";
+import type Product from "../../interface/Product";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import OurProductsButton from "../OurProductsButton";
+
+const products: Product[] = seedProducts.map((product) => ({
+  ...product,
+  createdAt: new Date(product.createdAt),
+  updatedAt: new Date(product.updatedAt),
+}));
 
 const OurProducts = () => {
   const [lineProducts, setLineProducts] = useState(8);
@@ -48,18 +55,8 @@ const OurProducts = () => {
           "mb-8",
         )}
       >
-        {seedProducts.slice(0, lineProducts * display).map((product) => (
-          <OurProductsCard
-            key={product.id}
-            image={product.image}
-            name={product.name}
-            description={product.description}
-            currentPrice={product.currentPrice}
-            offer={product.offer}
-            oldPrice={product.oldPrice}
-            discount={product.discount}
-            isNew={product.isNew}
-          ></OurProductsCard>
+        {products.slice(0, lineProducts * display).map((product) => (
+          <OurProductsCard key={product.id} produto={product}></OurProductsCard>
         ))}
       </div>
       <OurProductsButton
