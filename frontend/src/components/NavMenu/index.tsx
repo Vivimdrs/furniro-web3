@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { Link } from "react-router-dom";
 
 type NavMenuProps = {
   className?: string;
@@ -16,7 +17,7 @@ const NavMenu = ({ className, children }: NavMenuProps) => {
         className,
       )}
     >
-      <a className={clsx(LinkHover)}>Home</a>
+      <Link to={"/"} className={clsx(LinkHover)}>Home</Link>
       <a className={clsx(LinkHover)}>Shop</a>
       <a className={clsx(LinkHover)}>About</a>
       <a className={clsx(LinkHover)}>Contact</a>

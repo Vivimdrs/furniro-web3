@@ -3,6 +3,7 @@ import share from "/Icons/share.svg";
 import compare from "/Icons/compare.svg";
 import like from "/Icons/like.svg";
 import type Product from "../../interface/Product";
+import { Link } from "react-router-dom";
 
 interface OurProductsCardProp {
   produto: Product;
@@ -15,13 +16,14 @@ const OurProductsCard = ({produto}:OurProductsCardProp) => {
     "text-primary font-poppins font-medium text-[16px] leading-6 " +
     "absolute top-6 right-6";
   return (
-    <div
+    <Link
       className={clsx(
         "min-w-71.25 h-111.5",
         "bg-card-product",
         "group",
         "relative",
       )}
+      to={`/product/${produto.slug}`}
     >
       <div
         className={clsx("w-full h-75.25", "relative")}
@@ -126,7 +128,7 @@ const OurProductsCard = ({produto}:OurProductsCardProp) => {
           </a>
         </nav>
       </div>
-    </div>
+    </Link>
   );
 };
 export default OurProductsCard;
