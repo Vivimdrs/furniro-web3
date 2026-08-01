@@ -2,28 +2,13 @@ import clsx from "clsx";
 import share from "/Icons/share.svg";
 import compare from "/Icons/compare.svg";
 import like from "/Icons/like.svg";
+import type Product from "../../interface/Product";
 
+interface OurProductsCardProp {
+  produto: Product;
+}
 
-type OurProductsCardProps = {
-  image: string;
-  name: string;
-  description: string;
-  currentPrice: string;
-  offer: boolean;
-  oldPrice?: string;
-  discount?: number;
-  isNew: boolean;
-};
-const OurProductsCard = ({
-  image,
-  name,
-  description,
-  currentPrice,
-  offer,
-  oldPrice,
-  discount,
-  isNew,
-}: OurProductsCardProps) => {
+const OurProductsCard = ({produto}:OurProductsCardProp) => {
   const commonClass: string =
     "h-12 w-12 rounded-full " +
     "flex justify-center items-center " +
@@ -40,12 +25,12 @@ const OurProductsCard = ({
     >
       <div
         className={clsx("w-full h-75.25", "relative")}
-        style={{ backgroundImage: `url(${image})` }}
+        style={{ backgroundImage: `url(${produto.images[0]})` }}
       >
-        {offer && (
-          <div className={clsx("bg-[#E97171]", commonClass)}>-{discount}%</div>
+        {produto.discountPrice && (
+          <div className={clsx("bg-[#E97171]", commonClass)}>-{produto.discountPrice}%</div>
         )}
-        {isNew && <div className={clsx("bg-[#2EC1AC]", commonClass)}>New</div>}
+        {produto.isNew && <div className={clsx("bg-[#2EC1AC]", commonClass)}>New</div>}
       </div>
       <h1
         className={clsx(
@@ -53,7 +38,7 @@ const OurProductsCard = ({
           "ml-4 mt-4",
         )}
       >
-        {name}
+        {produto.name}
       </h1>
       <p
         className={clsx(
@@ -61,7 +46,7 @@ const OurProductsCard = ({
           "ml-4 mt-2",
         )}
       >
-        {description}
+        {produto.shortDescription}
       </p>
       <div className={clsx("ml-4 mt-2", "flex gap-4 items-center")}>
         <p
@@ -69,15 +54,15 @@ const OurProductsCard = ({
             "text-primary-text-200 font-semibold leading-6 font-poppins",
           )}
         >
-          {currentPrice}
+          {produto.discountPrice ? (produto.price - produto.price*(produto.discountPrice/100)): produto.price}
         </p>
-        {offer && (
+        {produto.discountPrice && (
           <p
             className={clsx(
               "text-[#B0B0B0] leading-6 text-[16px] line-through",
             )}
           >
-            {oldPrice}
+            {produto.price}
           </p>
         )}
       </div>
