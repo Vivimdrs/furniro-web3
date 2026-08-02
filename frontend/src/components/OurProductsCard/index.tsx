@@ -49,7 +49,7 @@ const OurProductsCard = ({produto}:OurProductsCardProp) => {
           "ml-4 mt-2",
         )}
       >
-        {produto.shortDescription}
+        {produto.category}
       </p>
       <div className={clsx("ml-4 mt-2", "flex gap-4 items-center")}>
         <p

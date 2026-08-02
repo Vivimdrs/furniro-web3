@@ -4,9 +4,19 @@ import NumberToStringRS from "../../utils/NumberToStringRS";
 import StarCount from "../StarCount";
 import SingleProductSize from "../SingleProductSize";
 import { useState } from "react";
+import SingleProductColor from "../SingleProductColor";
+import SingleProductQuantity from "../SingleProductQuantity";
 
 type SingleProductCardProps = {
   produto: Product;
+};
+
+type SigleProductCardStages = {
+  name: string;
+  image: string;
+  color: string;
+  size: string;
+  quantity: number;
 };
 
 const sizePrice: Record<string, number> = {
@@ -17,11 +27,41 @@ const sizePrice: Record<string, number> = {
 };
 
 const SingleProductCard = ({ produto }: SingleProductCardProps) => {
-  const [selectedSize, setSelectedSize] = useState(produto.sizes[0]);
+  const [productStages, setProductStages] = useState<SigleProductCardStages>({
+    name: produto.name,
+    image: produto.images[0],
+    color: produto.colors[0],
+    size: produto.sizes[0],
+    quantity: 1,
+  });
   const handleChangeSize = (index: number) => {
-    setSelectedSize(produto.sizes[index]);
+    setProductStages((prev) => ({
+      ...prev,
+      size: produto.sizes[index],
+    }));
   };
-  const priceWithSize = produto.price + produto.price * sizePrice[selectedSize]/100;
+  const handleChangeColor = (index: number) => {
+    setProductStages((prev) => ({
+      ...prev,
+      color: produto.colors[index],
+    }));
+  };
+  const handlePlusQuantity = () => {
+    setProductStages((prev) => ({
+      ...prev,
+      quantity: prev.quantity + 1,
+    }));
+  };
+  const handleMinusQuantity = () => {
+    setProductStages((prev) => ({
+      ...prev,
+      quantity: prev.quantity == 1 ? prev.quantity : prev.quantity - 1,
+    }));
+  };
+  const priceWithSizeAndQuantity =
+    (produto.price + (produto.price * sizePrice[productStages.size]) / 100) *
+    productStages.quantity;
+
   return (
     <div className={clsx("font-poppins")}>
       <h1 className={clsx("text-[42px]")}>{produto.name}</h1>
@@ -30,12 +70,17 @@ const SingleProductCard = ({ produto }: SingleProductCardProps) => {
           Rs.{" "}
           {produto.discountPrice
             ? NumberToStringRS(
-                priceWithSize - produto.price * (produto.discountPrice / 100),
+                priceWithSizeAndQuantity -
+                  produto.price *
+                    (produto.discountPrice / 100) *
+                    productStages.quantity,
               )
-            : NumberToStringRS(produto.price)}
+            : NumberToStringRS(priceWithSizeAndQuantity)}
         </h1>
         {produto.discountPrice && (
-          <h1 className="line-through">R$ {NumberToStringRS(priceWithSize)}</h1>
+          <h1 className="line-through">
+            R$ {NumberToStringRS(priceWithSizeAndQuantity)}
+          </h1>
         )}
       </div>
       <StarCount
@@ -43,13 +88,24 @@ const SingleProductCard = ({ produto }: SingleProductCardProps) => {
         reviewCount={produto.reviewCount}
       ></StarCount>
       <p className={clsx("max-w-106 text-[13px] mb-5.5")}>
-        {produto.description}
+        {produto.shortDescription}
       </p>
       <SingleProductSize
         sizes={produto.sizes}
         handleChangeSize={handleChangeSize}
-        selectedSize={selectedSize}
+        selectedSize={productStages.size}
       ></SingleProductSize>
+      <SingleProductColor
+        colors={produto.colors}
+        handleChangeColor={handleChangeColor}
+        selectedColor={productStages.color}
+      ></SingleProductColor>
+      <SingleProductQuantity
+        currentQuantity={productStages.quantity}
+        handlePlusQuantity={handlePlusQuantity}
+        handleMinusQuantity={handleMinusQuantity}
+        SingleProductCartProps={productStages}
+      ></SingleProductQuantity>
     </div>
   );
 };
