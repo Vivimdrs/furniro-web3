@@ -9,7 +9,7 @@
     "price": 2500000,
     "discountPrice": 30,
     "category": "chair",
-    "rating": 5,
+    "rating": 4.7,
     "reviewCount": 3,
     "stock": 3,
     "colors": ["#000000", "#FFFFFF", "#FF0000"],
