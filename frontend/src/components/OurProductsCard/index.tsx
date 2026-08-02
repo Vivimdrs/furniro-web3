@@ -4,6 +4,7 @@ import compare from "/Icons/compare.svg";
 import like from "/Icons/like.svg";
 import type Product from "../../interface/Product";
 import { Link } from "react-router-dom";
+import NumberToStringRP from "../../utils/NumberToStringRP";
 
 interface OurProductsCardProp {
   produto: Product;
@@ -48,7 +49,7 @@ const OurProductsCard = ({produto}:OurProductsCardProp) => {
           "ml-4 mt-2",
         )}
       >
-        {produto.shortDescription}
+        {produto.category}
       </p>
       <div className={clsx("ml-4 mt-2", "flex gap-4 items-center")}>
         <p
@@ -56,7 +57,7 @@ const OurProductsCard = ({produto}:OurProductsCardProp) => {
             "text-primary-text-200 font-semibold leading-6 font-poppins",
           )}
         >
-          {produto.discountPrice ? (produto.price - produto.price*(produto.discountPrice/100)): produto.price}
+          Rp {produto.discountPrice ? NumberToStringRP((produto.price - produto.price*(produto.discountPrice/100))): NumberToStringRP(produto.price)}
         </p>
         {produto.discountPrice && (
           <p
@@ -64,7 +65,7 @@ const OurProductsCard = ({produto}:OurProductsCardProp) => {
               "text-[#B0B0B0] leading-6 text-[16px] line-through",
             )}
           >
-            {produto.price}
+            Rp {NumberToStringRP(produto.price)}
           </p>
         )}
       </div>

@@ -10,10 +10,13 @@ const SingleProductImages = ({ images }: SingleProductImagesProps) => {
     setCurrentImage(image);
   };
   return (
-    <div className={clsx("flex gap-7")}>
-      <div className={clsx("flex flex-col gap-6.75")}>
-        {images.map((image) => (
+    <div className={clsx("flex gap-7 flex-col-reverse", "md:flex-row")}>
+      <div
+        className={clsx("flex gap-6.75", "md:flex-col max-md:justify-center")}
+      >
+        {images.map((image, index) => (
           <img
+            key={index}
             src={image}
             className={clsx(
               "w-19 h-20 rounded-[10px]",

@@ -5,6 +5,8 @@ import type Product from "../../interface/Product";
 import seedProducts from "../../db/Seed/Seed.json";
 import Container from "../../components/Container";
 import SingleProductImages from "../../components/SingleProductImages";
+import SingleProductCard from "../../components/SingleProductCard";
+import clsx from "clsx";
 const products: Product[] = seedProducts.map((product) => ({
   ...product,
   createdAt: new Date(product.createdAt),
@@ -23,7 +25,12 @@ const Product = () => {
 
   return (
     <Container>
-      <SingleProductImages images={currentProduct.images}></SingleProductImages>
+      <div className={clsx("flex gap-26.5 justify-center flex-wrap-reverse md:px-0 px-2")}>
+        <SingleProductImages
+          images={currentProduct.images}
+        ></SingleProductImages>
+        <SingleProductCard produto={currentProduct}></SingleProductCard>
+      </div>
     </Container>
   );
 };
