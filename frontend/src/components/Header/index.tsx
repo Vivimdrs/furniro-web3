@@ -3,6 +3,7 @@ import Logo from "../Logo";
 import MobileMenu from "../MobileMenu";
 import NavMenu from "../NavMenu";
 import RightMenu from "../RigthMenu";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -23,7 +24,9 @@ const Header = () => {
             "lg:px-12.5",
           )}
         >
-          <Logo></Logo>
+          <Link to={"/"}>
+            <Logo></Logo>
+          </Link>
           <NavMenu className={clsx("hidden", "md:flex")}></NavMenu>
           <RightMenu className={clsx("hidden", "md:flex")}></RightMenu>
           <MobileMenu className={clsx("flex", "md:hidden")}></MobileMenu>
