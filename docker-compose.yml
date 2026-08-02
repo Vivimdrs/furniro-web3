@@ -1,0 +1,52 @@
+services:
+    mongodb:
+        image: mongo:8
+
+        ports:
+            - "27017:27017"
+
+        volumes:
+            - mongo_data:/data/db
+
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: admin
+            MONGO_INITDB_ROOT_PASSWORD: admin123
+    backend:
+        build:
+            context: ./backend
+            dockerfile: dockerfile.dev
+
+        ports:
+            - "3000:3000"
+
+        volumes:
+            - ./backend:/app
+            - /app/node_modules
+
+        environment:
+            NODE_ENV: development
+            DATABASE_URL: mongodb://admin:admin123@mongodb:27017/furniro?authSource=admin
+
+        depends_on:
+            - mongodb
+
+    frontend:
+        build:
+            context: ./frontend
+            dockerfile: dockerfile.dev
+
+        ports:
+            - "5173:5173"
+
+        volumes:
+            - ./frontend:/app
+            - /app/node_modules
+
+        depends_on:
+            - backend
+
+        environment:
+            VITE_API_URL: http://localhost:3000
+
+volumes:
+    mongo_data:
