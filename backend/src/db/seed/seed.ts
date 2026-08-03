@@ -53,6 +53,7 @@ async function main() {
       sizes: faker.helpers.arrayElements(sizes, { min: 1, max: 3 }),
       images: faker.helpers.arrayElements(allImages, { min: 2, max: 5 }),
       sku: `PRD-${String(i + 1).padStart(3, '0')}`,
+      additionalInfo: faker.lorem.paragraphs(2),
     }
   })
 

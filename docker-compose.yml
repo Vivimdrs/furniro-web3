@@ -8,9 +8,25 @@ services:
         volumes:
             - mongo_data:/data/db
 
-        environment:
-            MONGO_INITDB_ROOT_USERNAME: admin
-            MONGO_INITDB_ROOT_PASSWORD: admin123
+        command: ["--replSet", "rs0", "--bind_ip_all"]
+
+        healthcheck:
+            test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+            interval: 10s
+            timeout: 10s
+            retries: 5
+            start_period: 40s
+
+    mongo-init:
+        image: mongo:8
+        depends_on:
+            mongodb:
+                condition: service_healthy
+        restart: no
+        entrypoint: >
+            mongosh --host mongodb:27017
+            --eval "try { rs.initiate({_id:'rs0',members:[{_id:0,host:'mongodb:27017'}]}) } catch(e) { if(e.codeName !== 'AlreadyInitialized') throw e }"
+
     backend:
         build:
             context: ./backend
@@ -25,10 +41,11 @@ services:
 
         environment:
             NODE_ENV: development
-            DATABASE_URL: mongodb://admin:admin123@mongodb:27017/furniro?authSource=admin
+            DATABASE_URL: mongodb://mongodb:27017/furniro?replicaSet=rs0&directConnection=true
 
         depends_on:
-            - mongodb
+            mongo-init:
+                condition: service_completed_successfully
 
     frontend:
         build:

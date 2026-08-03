@@ -14,6 +14,7 @@ model Product {
   isNew            Boolean  @default(false)
   description      String
   shortDescription String
+  additionalInfo   String?
   price            Float
   discountPrice    Float?
   category         String

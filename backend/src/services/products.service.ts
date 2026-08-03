@@ -54,7 +54,6 @@ export class ProductService {
         }
 
         const product = await this.productRepository.findProductById(id)
-        logger.error(`Product with id "${id}" not found`)
 
         if (!product) {
             logger.error(`Product with id "${id}" not found`);
