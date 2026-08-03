@@ -22,7 +22,7 @@ const allImages = [
 const categories = ['dining', 'living', 'bedroom'] as const
 
 const colors = ['#000000', '#FFFFFF', '#8B4513', '#808080', '#F5F5DC', '#C0C0C0']
-const sizes = ['L','XL', 'XS']
+const sizes = ['XS','S','M','L','XL']
 
 function truncate(text: string, limit: number) {
   return text.length > limit ? text.substring(0, limit) : text
