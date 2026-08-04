@@ -4,7 +4,7 @@
     "name": "Syltherine",
     "slug": "syltherine",
     "isNew": false,
-    "description": "Stylish cafe chair Stylish cafe chair Stylish cafe chair Stylish cafe chair",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vulputate rhoncus odio in tristique. Proin sed imperdiet sem. Curabitur molestie quam id nisi posuere, et fermentum metus suscipit. Integer sollicitudin ut sem vitae sollicitudin. Maecenas nec orci gravida, sollicitudin elit in, fringilla justo. Nunc non hendrerit lorem. In non neque nisi. Nam ut ipsum ut erat interdum convallis. Nunc malesuada blandit elementum. Maecenas velit est, maximus sit amet turpis quis, sodales consectetur elit. Cras porta nibh consequat elit pellentesque vulputate. Donec euismod interdum quam, id varius ligula consectetur eget. Fusce facilisis consequat mauris ut faucibus. Integer nec tortor ut quam faucibus rutrum vel vel ipsum. Proin feugiat sapien id maximus vestibulum. Nam egestas enim vel felis faucibus ultricies. Pellentesque in justo nec augue egestas laoreet quis non lectus. Nulla sodales condimentum augue. Mauris iaculis bibendum ipsum, quis convallis mauris vehicula eget. Donec iaculis enim sed eleifend interdum. Aliquam a malesuada ante. Suspendisse ut erat et felis congue euismod.",
     "shortDescription": "Stylish cafe chair",
     "price": 2500000,
     "discountPrice": 30,
@@ -14,8 +14,13 @@
     "stock": 3,
     "colors": ["#816DFA", "#000", "#B88E2F"],
     "sizes": ["xl", "l", "m", "s"],
-    "images": ["/OurProducts/Syltherine.png", "/OurProducts/Leviosa.png", "/OurProducts/Lolito.png", "/OurProducts/Respira.png"],
-    "sku": "Não sei que danado é isso",
+    "images": [
+      "/OurProducts/Syltherine.png",
+      "/OurProducts/Leviosa.png",
+      "/OurProducts/Lolito.png",
+      "/OurProducts/Respira.png"
+    ],
+    "sku": "SS001",
     "createdAt": "2026-08-01T00:00:00.000Z",
     "updatedAt": "2026-08-01T00:00:00.000Z"
   },
@@ -34,7 +39,12 @@
     "stock": 3,
     "colors": ["#000000", "#FFFFFF", "#FF0000"],
     "sizes": ["xl", "l", "m", "s"],
-    "images": ["/OurProducts/Leviosa.png", "/OurProducts/Pingky.png", "/OurProducts/Potty.png", "/OurProducts/Respira.png"],
+    "images": [
+      "/OurProducts/Leviosa.png",
+      "/OurProducts/Pingky.png",
+      "/OurProducts/Potty.png",
+      "/OurProducts/Respira.png"
+    ],
     "sku": "LEV-001",
     "createdAt": "2026-08-01T00:00:00.000Z",
     "updatedAt": "2026-08-01T00:00:00.000Z"

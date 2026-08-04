@@ -63,7 +63,7 @@ const SingleProductCard = ({ produto }: SingleProductCardProps) => {
     productStages.quantity;
 
   return (
-    <div className={clsx("font-poppins")}>
+    <div className={clsx("font-poppins", "max-w-150 md:w-full")}>
       <h1 className={clsx("text-[42px]")}>{produto.name}</h1>
       <div className={clsx("flex gap-6 items-end", "text-[#9f9f9f] ")}>
         <h1 className={clsx("text-[24px]")}>
@@ -106,6 +106,61 @@ const SingleProductCard = ({ produto }: SingleProductCardProps) => {
         handleMinusQuantity={handleMinusQuantity}
         SingleProductCartProps={productStages}
       ></SingleProductQuantity>
+      <div
+        className={clsx(
+          "mt-10 border-t border-[#d9d9d9] w-full pt-10",
+          "font-poppins text-[#9f9f9f] text-[16px]",
+        )}
+      >
+        <ul className={clsx("flex flex-col gap-4 text-[16px]")}>
+          <li className={clsx("flex")}><div className={clsx("flex justify-between w-25 mr-2")}><span>SKU</span>:</div>{produto.sku}</li>
+          <li className={clsx("flex")}><div className={clsx("flex justify-between w-25 mr-2")}><span>Category</span>:</div>{produto.category}</li>
+          <li className={clsx("flex")}><div className={clsx("flex justify-between w-25 mr-2")}><span>Tags</span>:</div>lorem, ipsum</li>
+          <li className={clsx("flex")}><div className={clsx("flex justify-between w-25 mr-2")}><span>SKU</span>:</div>
+            <div className={clsx("flex gap-4")}>
+              <a
+                className={clsx(
+                  "h-5 w-5",
+                  "rounded-full",
+                  "flex justify-center items-center",
+                  "cursor-pointer hover:scale-110 transition",
+                  "bg-white invert"
+                )}
+                href="https://www.facebook.com/compass.uol/?locale=pt_BR"
+                target="_blank"
+              >
+                <img src="/Social/facebook.png" alt="" />
+              </a>
+              <a
+                className={clsx(
+                  "h-5 w-5",
+                  "rounded-full",
+                  "flex justify-center items-center",
+                  "cursor-pointer hover:scale-110 transition",
+                  "bg-white invert"
+                )}
+                href="https://x.com/compassuol"
+                target="_blank"
+              >
+                <img src="/Social/twitter.png" alt="" />
+              </a>
+              <a
+                className={clsx(
+                  "h-5 w-5",
+                  "rounded-full",
+                  "flex justify-center items-center",
+                  "cursor-pointer hover:scale-110 transition",
+                  "bg-white invert"
+                )}
+                href="https://www.linkedin.com/company/compass-uol/posts/?feedView=all"
+                target="_blank"
+              >
+                <img src="/Social/linkedin.png" alt="" />
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

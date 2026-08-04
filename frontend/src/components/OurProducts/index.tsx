@@ -11,7 +11,12 @@ const products: Product[] = seedProducts.map((product) => ({
   updatedAt: new Date(product.updatedAt),
 }));
 
-const OurProducts = () => {
+type OurProductsProps = {
+  title: string;
+  font: "font-bold" | "font-semibold";
+};
+
+const OurProducts = ({ title, font }: OurProductsProps) => {
   const [lineProducts, setLineProducts] = useState(8);
   const [display, setDisplay] = useState(2);
 
@@ -42,11 +47,11 @@ const OurProducts = () => {
     >
       <h1
         className={clsx(
-          "text-primary-text-200 text-[40px] font-bold font-poppins leading-12",
-          "mb-8",
+          "text-primary-text-200 text-[40px] font-poppins leading-12",
+          "mb-8", {font}
         )}
       >
-        Our Products
+        {title}
       </h1>
       <div
         className={clsx(
