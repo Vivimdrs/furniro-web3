@@ -5,25 +5,27 @@ import Home from "./pages/Home/page";
 import Footer from "./components/Footer";
 import { Route, Routes } from "react-router-dom";
 import Product from "./pages/Product/page";
+import Shop from "./pages/Shop/page";
 
 const App = () => {
-  return (
-    <>
-      <Toaster />
+    return (
+        <>
+            <Toaster />
 
-      <Container className="bg-[#FFF]">
-        <Header />
-      </Container>
+            <Container className="bg-[#FFF]">
+                <Header />
+            </Container>
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/product/:slug" element={<Product />} />
-      </Routes>
-      <Container className="bg-primary border-t border-t-[rgba(0,0,0,0.17)]">
-        <Footer />
-      </Container>
-    </>
-  );
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/shop/:category?" element={<Shop />} />
+                <Route path="/product/:slug" element={<Product />} />
+            </Routes>
+            <Container className="bg-primary border-t border-t-[rgba(0,0,0,0.17)]">
+                <Footer />
+            </Container>
+        </>
+    );
 };
 
 export default App;
