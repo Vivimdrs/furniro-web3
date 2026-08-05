@@ -69,11 +69,16 @@ const Cart = () => {
     <Container>
       <div className={clsx("pt-10 pb-20 px-4 w-full")}>
         <div className={clsx("max-w-360 mx-auto", "space-y-6")}>
-          <h1 className={clsx("text-[32px] font-semibold")}>Carrinho</h1>
+          <h1 className={clsx("text-[42px] font-semibold font-poppins text-primary-text-200 mb-2")}>Carrinho</h1>
 
           <div className={clsx("space-y-6")}>
             <div className={clsx("grid gap-6 lg:grid-cols-[1.8fr_1fr]")}>
               <div className={clsx("space-y-6")}>
+                {items.length === 0 && (
+                  <div className={clsx("bg-card-product p-8 rounded-[20px] text-center text-[16px] font-poppins text-over-card-product")}>
+                    Seu carrinho está vazio.
+                  </div>
+                )}
                 {items.map((item) => {
                   const itemPrice = item.discountPrice
                     ? item.price - item.price * (item.discountPrice / 100)
@@ -82,7 +87,7 @@ const Cart = () => {
                     <div
                       key={item.id}
                       className={clsx(
-                        "bg-[#F7F7F7] p-4 rounded-[20px] flex flex-col sm:flex-row gap-4",
+                        "bg-card-product p-6 rounded-[20px] flex flex-col sm:flex-row gap-6",
                       )}
                     >
                       <img
@@ -101,19 +106,19 @@ const Cart = () => {
                               "flex flex-wrap gap-2 items-center",
                             )}
                           >
-                            <h2 className={clsx("text-[20px] font-semibold")}>
+                            <h2 className={clsx("text-[24px] font-semibold font-poppins text-primary-text-200")}>
                               {item.name}
                             </h2>
                             <span
-                              className={clsx("text-[14px] text-[#666666]")}
+                              className={clsx("text-[16px] font-medium font-poppins text-over-card-product")}
                             >
                               {item.slug}
                             </span>
                           </div>
-                          <p className={clsx("text-[14px] text-[#666666]")}>
+                          <p className={clsx("text-[16px] font-poppins text-over-card-product")}>
                             Cor: {item.color}
                           </p>
-                          <p className={clsx("text-[14px] text-[#666666]")}>
+                          <p className={clsx("text-[16px] font-poppins text-over-card-product")}>
                             Tamanho: {item.size}
                           </p>
                         </div>
@@ -162,20 +167,16 @@ const Cart = () => {
                       </div>
                       <div className={clsx("flex flex-col justify-between")}>
                         <div className={clsx("text-right")}>
-                          <p className={clsx("text-[16px] text-[#666666]")}>
+                          <p className={clsx("text-[16px] font-poppins text-over-card-product")}>
                             Preço unitário
                           </p>
-                          <p className={clsx("text-[20px] font-semibold")}>
+                          <p className={clsx("text-[24px] font-semibold font-poppins text-primary-text-200")}>
                             R$ {NumberToStringRP(itemPrice)}
                           </p>
                         </div>
-                        <div
-                          className={clsx(
-                            "text-[14px] text-[#666666] text-right",
-                          )}
-                        >
-                          <p>Total</p>
-                          <p className={clsx("text-[18px] font-semibold")}>
+                        <div className={clsx("text-right")}>
+                          <p className={clsx("text-[16px] font-poppins text-over-card-product")}>Total</p>
+                          <p className={clsx("text-[24px] font-semibold font-poppins text-primary-text-200")}>
                             R$ {NumberToStringRP(itemPrice * item.quantity)}
                           </p>
                         </div>
@@ -187,17 +188,28 @@ const Cart = () => {
 
               <aside
                 className={clsx(
-                  "bg-[#F7F7F7] p-5 rounded-[20px] flex flex-col gap-4",
+                  "bg-card-product p-6 rounded-[20px] flex flex-col gap-6",
                 )}
               >
                 <div className={clsx("flex justify-between items-center")}>
-                  <span className={clsx("text-[16px] text-[#666666]")}>
+                  <span className={clsx("text-[16px] font-poppins text-over-card-product")}>
                     Subtotal
                   </span>
-                  <strong className={clsx("text-[24px]")}>
+                  <strong className={clsx("text-[24px] font-semibold font-poppins text-primary-text-200")}>
                     R$ {NumberToStringRP(subtotal)}
                   </strong>
                 </div>
+                <Link
+                  to={items.length === 0 ? "#" : "/checkout"}
+                  onClick={(e) => items.length === 0 && e.preventDefault()}
+                  className={clsx(
+                    "w-full text-center text-white bg-primary text-[16px] font-semibold py-4 rounded-[15px]",
+                    "hover:bg-over-secundary transition",
+                    items.length === 0 && "opacity-50 cursor-not-allowed",
+                  )}
+                >
+                  Finalizar compra
+                </Link>
                 <Link
                   to="/"
                   className={clsx(
