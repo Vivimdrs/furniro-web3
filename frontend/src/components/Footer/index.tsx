@@ -14,7 +14,7 @@ const Footer = () => {
     <footer className={clsx("min-h-[505px] w-full px-4 pb-9.5 pt-12 font-poppins leading-normal lg:px-[100px]")}>
       <div
         className={clsx(
-          "grid gap-10 md:grid-cols-2 lg:grid-cols-[393px_177px_177px_1fr]",
+          "grid gap-10 md:grid-cols-2 lg:grid-cols-[393px_177px_177px_minmax(0,1fr)]",
           "border-b border-b-[rgba(0,0,0,0.17)]",
           "pb-12",
         )}
@@ -79,14 +79,14 @@ const Footer = () => {
           </h1>
           <form
             onSubmit={(e) => e.preventDefault()}
-            className={clsx("text-[16px] font-medium", "flex gap-2.75")}
+            className={clsx("flex flex-wrap gap-2.75 text-[16px] font-medium")}
           >
             <input
               type="text"
               placeholder="Enter Your Email Address"
               className={clsx(
                 "placeholder:text-[#9F9F9F] placeholder:text-[14px] focus:outline-none",
-                "py-0.75 w-50",
+                "min-w-0 max-w-full py-0.75 w-50",
                 "border-b border-b-black",
               )}
               required

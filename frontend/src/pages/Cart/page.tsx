@@ -77,10 +77,10 @@ const Cart = () => {
 
   return (
     <Container className="bg-[#FFF]">
-      <div className="w-full font-poppins leading-normal">
+      <div className="w-full overflow-x-clip font-poppins leading-normal">
         <section
           className={clsx(
-            "relative min-h-[316px] overflow-hidden bg-cover bg-center",
+            "relative min-h-[260px] overflow-hidden bg-cover bg-center md:min-h-[316px]",
           )}
           style={{ backgroundImage: "url('/Images/Background-Banner.svg')" }}
         >
@@ -92,11 +92,11 @@ const Cart = () => {
             <img
               src="/Logo/Logo.svg"
               alt="Furniro logo"
-              className="h-[77px] w-[77px] object-contain"
+              className="h-16 w-16 object-contain md:h-[77px] md:w-[77px]"
             />
             <h1
               className={clsx(
-                "-mt-4 text-[48px] font-medium leading-[72px] text-black",
+                "-mt-3 text-[40px] font-medium leading-normal text-black md:-mt-4 md:text-[48px] md:leading-[72px]",
               )}
             >
               Cart
@@ -109,13 +109,13 @@ const Cart = () => {
           </div>
         </section>
 
-        <main className="mx-auto min-h-[525px] max-w-[1240px] px-4 py-[72px]">
-          <div className="grid gap-[30px] xl:grid-cols-[817px_393px]">
-            <div className="min-w-0 overflow-x-auto">
-              <div className="min-w-[817px] bg-white">
+        <main className="mx-auto box-border min-h-[525px] w-full max-w-[1240px] px-4 py-10 md:py-[72px]">
+          <div className="grid w-full min-w-0 gap-[30px] xl:grid-cols-[817px_393px]">
+            <div className="min-w-0">
+              <div className="bg-white xl:min-w-[817px]">
                 <div
                   className={clsx(
-                    "grid h-[55px] grid-cols-[142px_177px_156px_106px_162px_74px] items-center bg-[#F9F1E7] text-[16px] font-medium text-black",
+                    "hidden h-[55px] grid-cols-[142px_177px_156px_106px_162px_74px] items-center bg-[#F9F1E7] text-[16px] font-medium text-black xl:grid",
                   )}
                 >
                   <div />
@@ -126,7 +126,7 @@ const Cart = () => {
                   <div />
                 </div>
 
-                <div className="space-y-3 pt-10">
+                <div className="space-y-4 xl:space-y-3 xl:pt-10">
                   {items.length === 0 ? (
                     <div
                       className={clsx(
@@ -144,27 +144,28 @@ const Cart = () => {
                         <div
                           key={item.id}
                           className={clsx(
-                            "grid min-h-[105px] grid-cols-[142px_177px_156px_106px_162px_74px] items-center bg-white text-[16px]",
+                            "relative grid min-h-[145px] max-w-full grid-cols-[88px_minmax(0,1fr)] gap-x-3 gap-y-2 rounded-[10px] border border-[#F0E7DB] bg-white p-3 pr-12 text-[14px] sm:grid-cols-[105px_minmax(0,1fr)] sm:text-[16px] xl:min-h-[105px] xl:grid-cols-[142px_177px_156px_106px_162px_74px] xl:gap-0 xl:rounded-none xl:border-0 xl:p-0",
                           )}
                         >
-                          <div className="flex h-[105px] w-[105px] items-center justify-center rounded-[10px] bg-[#B88E2F]/20">
+                          <div className="row-span-4 flex h-[88px] w-[88px] items-center justify-center self-start rounded-[10px] bg-[#B88E2F]/20 sm:h-[105px] sm:w-[105px] xl:row-auto xl:self-center">
                             <img
                               src={item.image}
                               alt={item.name}
                               className={clsx(
-                                "h-[95px] w-[105px] object-contain",
+                                "h-[82px] w-[88px] object-contain sm:h-[95px] sm:w-[105px]",
                               )}
                             />
                           </div>
-                          <p className="text-[#9F9F9F]">{item.name}</p>
+                          <p className="col-start-2 row-start-1 self-end font-medium text-black sm:self-center xl:col-auto xl:row-auto xl:font-normal xl:text-[#9F9F9F]">{item.name}</p>
 
-                          <div className={clsx("text-[#9F9F9F]")}>
+                          <div className="col-start-2 row-start-2 text-[#9F9F9F] xl:col-auto xl:row-auto">
+                            <span className="mr-1 xl:hidden">Price:</span>
                             Rs. {formatRs(itemPrice)}
                           </div>
 
                           <div
                             className={clsx(
-                              "flex h-[47px] w-[106px] items-center justify-between rounded-[10px] border border-[#9F9F9F] px-2",
+                              "col-start-2 row-start-3 flex h-[42px] w-[106px] items-center justify-between rounded-[10px] border border-[#9F9F9F] px-2 xl:col-auto xl:row-auto xl:h-[47px]",
                             )}
                           >
                             <button
@@ -200,7 +201,8 @@ const Cart = () => {
                             </button>
                           </div>
 
-                          <div className={clsx("text-black")}>
+                          <div className="col-start-2 row-start-4 font-medium text-black xl:col-auto xl:row-auto xl:font-normal">
+                            <span className="mr-1 text-[#9F9F9F] xl:hidden">Subtotal:</span>
                             Rs. {formatRs(itemPrice * item.quantity)}
                           </div>
 
@@ -209,7 +211,7 @@ const Cart = () => {
                             aria-label="Remove item"
                             onClick={() => removeItem(item.id)}
                             className={clsx(
-                              "flex h-10 w-10 items-center justify-center text-[#B88E2F] transition hover:bg-[#F8E6C5]",
+                              "absolute right-2 top-2 flex h-10 w-10 items-center justify-center text-[#B88E2F] transition hover:bg-[#F8E6C5] xl:static xl:col-auto xl:row-auto",
                             )}
                           >
                             <AiOutlineDelete size={28} />
@@ -222,20 +224,20 @@ const Cart = () => {
               </div>
             </div>
 
-            <aside className="h-[390px] bg-[#F9F1E7] px-[75px] pt-[15px]">
+            <aside className="box-border h-[390px] min-w-0 w-full max-w-full overflow-hidden bg-[#F9F1E7] px-6 pt-[15px] sm:px-[75px] xl:w-[393px]">
               <div>
-                <h2 className="whitespace-nowrap text-center text-[32px] font-semibold text-black">
+                <h2 className="whitespace-nowrap text-center text-[28px] font-semibold text-black sm:text-[32px]">
                   Cart Totals
                 </h2>
-                <div className="mt-[63px] flex items-center justify-between text-[16px]">
-                  <span className="font-medium text-black">Subtotal</span>
-                  <span className="text-[#9F9F9F]">
+                <div className="mt-[63px] flex min-w-0 flex-col items-start gap-1 text-[16px] sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                  <span className="shrink-0 font-medium text-black">Subtotal</span>
+                  <span className="max-w-full text-[14px] text-[#9F9F9F] sm:text-right sm:text-[16px]">
                     Rs. {formatRs(subtotal)}
                   </span>
                 </div>
-                <div className="mt-[31px] flex items-center justify-between text-[16px]">
-                  <span className="font-medium text-black">Total</span>
-                  <span className="whitespace-nowrap text-[20px] font-medium text-[#B88E2F]">
+                <div className="mt-[25px] flex min-w-0 flex-col items-start gap-1 text-[16px] sm:mt-[31px] sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                  <span className="shrink-0 font-medium text-black">Total</span>
+                  <span className="max-w-full whitespace-nowrap text-[16px] font-medium text-[#B88E2F] sm:text-right sm:text-[20px]">
                     Rs. {formatRs(total)}
                   </span>
                 </div>
@@ -243,7 +245,7 @@ const Cart = () => {
                   to={items.length === 0 ? "#" : "/checkout"}
                   onClick={(e) => items.length === 0 && e.preventDefault()}
                   className={clsx(
-                    "mx-auto mt-[50px] inline-flex h-[59px] w-[222px] items-center justify-center rounded-[15px] border border-black bg-transparent text-[20px] text-black transition hover:bg-white/50",
+                    "mx-auto mt-[50px] inline-flex h-[59px] w-full max-w-[222px] items-center justify-center rounded-[15px] border border-black bg-transparent text-[20px] text-black transition hover:bg-white/50",
                     items.length === 0 && "opacity-50 cursor-not-allowed",
                   )}
                 >

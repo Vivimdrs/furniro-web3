@@ -34,7 +34,7 @@ const BenefitsCard = () => {
     >
       <div
         className={clsx(
-          "w-full max-w-[1334px] px-6",
+          "w-full max-w-[1334px] px-6 sm:px-8 lg:px-6",
           "grid grid-cols-1 gap-8 sm:grid-cols-2 lg:flex lg:items-center lg:justify-between",
         )}
       >
