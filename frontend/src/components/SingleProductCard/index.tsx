@@ -24,6 +24,7 @@ const sizePrice: Record<string, number> = {
   l: 10,
   m: 0,
   s: -10,
+  xs: -20,
 };
 
 const SingleProductCard = ({ produto }: SingleProductCardProps) => {
@@ -34,10 +35,10 @@ const SingleProductCard = ({ produto }: SingleProductCardProps) => {
     size: produto.sizes[0],
     quantity: 1,
   });
-  const handleChangeSize = (index: number) => {
+  const handleChangeSize = (size: string) => {
     setProductStages((prev) => ({
       ...prev,
-      size: produto.sizes[index],
+      size,
     }));
   };
   const handleChangeColor = (index: number) => {
@@ -59,7 +60,7 @@ const SingleProductCard = ({ produto }: SingleProductCardProps) => {
     }));
   };
   const priceWithSizeAndQuantity =
-    (produto.price + (produto.price * sizePrice[productStages.size]) / 100) *
+    (produto.price + (produto.price * (sizePrice[productStages.size.toLowerCase()] ?? 0)) / 100) *
     productStages.quantity;
   const priceWithSize =
     produto.price + (produto.price * sizePrice[productStages.size]) / 100;
@@ -81,7 +82,7 @@ const SingleProductCard = ({ produto }: SingleProductCardProps) => {
         </h1>
         {produto.discountPrice && (
           <h1 className="line-through">
-            R$ {NumberToStringRS(priceWithSizeAndQuantity)}
+            Rs. {NumberToStringRS(priceWithSizeAndQuantity)}
           </h1>
         )}
       </div>

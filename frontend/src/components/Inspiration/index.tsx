@@ -2,6 +2,7 @@ import clsx from "clsx";
 import HeroButton from "../HeroButton";
 import InspirationCard from "../InspirationCard";
 import InspirationCaroucel from "../InspirationCaroucel";
+import {Link} from "react-router-dom";
 
 const Inspiration = () => {
   return (
@@ -21,10 +22,12 @@ const Inspiration = () => {
           Our designer already made a lot of beautiful prototipe of rooms that
           inspire you
         </p>
-        <HeroButton
-          label="Explore More"
-          className={clsx("h-12 w-44", "font-semibold text-[16px] normal-case")}
-        ></HeroButton>
+        <Link to="/shop">
+          <HeroButton
+            label="Explore More"
+            className={clsx("h-12 w-44", "font-semibold text-[16px] normal-case")}
+          ></HeroButton>
+        </Link>
       </div>
 
       <div className={clsx("flex flex-wrap gap-6 justify-center")}>

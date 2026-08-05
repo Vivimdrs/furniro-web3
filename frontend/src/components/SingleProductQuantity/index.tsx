@@ -67,8 +67,11 @@ const SingleProductQuantity = ({
       </div>
       <button
         className={clsx(
-          "h-[47px] min-w-[150px] rounded-[15px] bg-[#B88E2F] px-4 text-[16px] font-semibold text-white",
-          "hover:brightness-110 transition",
+          "flex justify-around items-center w-53.75 h-16",
+          "border-[#9F9F9F] border",
+          "rounded-[15px]",
+          "text-[20px]",
+          "cursor-pointer hover:transform hover:scale-105 transition",
         )}
         onClick={handleAddToCart}
       >
