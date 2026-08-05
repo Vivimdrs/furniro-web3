@@ -2,6 +2,8 @@ import { useState } from "react";
 import type Product from "../interface/Product";
 import clsx from "clsx";
 
+const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
+
 type SingleProductCardAdditionalProps = {
   produto: Product;
 };
@@ -49,32 +51,17 @@ const SingleProductCardAdditional = ({
               "flex gap-10 flex-wrap items-center justify-center",
             )}
           >
-            <img src={produto.images[0]}></img>
-            <img src={produto.images[1]}></img>
+            <img src={`${API_URL}${produto.images[0]}`}></img>
+            <img src={`${API_URL}${produto.images[1]}`}></img>
           </div>
           <p className={clsx("text-[16px] text-[#9f9f9f]")}>
             {produto.description}
           </p>
         </div>
         <div className={clsx(visible === 1 ? "block" : "hidden")}>
-          <ul className={clsx("text-[16px] text-[#9f9f9f] leading-7")}>
-            <li>ID: {produto.id}</li>
-            <li>Name: {produto.name}</li>
-            <li>Slug: {produto.slug}</li>
-            <li>New: {produto.isNew ? "Yes" : "No"}</li>
-            <li>Description: {produto.description}</li>
-            <li>Price: {produto.price}</li>
-            <li>Discount Price: {produto.discountPrice ?? "No discount"}</li>
-            <li>Category: {produto.category}</li>
-            <li>Rating: {produto.rating}</li>
-            <li>Review Count: {produto.reviewCount}</li>
-            <li>Stock: {produto.stock}</li>
-            <li>Colors: {produto.colors.join(", ")}</li>
-            <li>Sizes: {produto.sizes.join(", ")}</li>
-            <li>SKU: {produto.sku}</li>
-            <li>Created At: {produto.createdAt.toLocaleDateString()}</li>
-            <li>Updated At: {produto.updatedAt.toLocaleDateString()}</li>
-          </ul>
+          <p className={clsx("text-[16px] text-[#9f9f9f]")}>
+            {produto.additionalInfo}
+          </p>
         </div>
       </div>
     </div>
