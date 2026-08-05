@@ -1,46 +1,9 @@
 ﻿import { Link } from "react-router-dom";
-import { useState } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import clsx from "clsx";
 import Container from "../../components/Container";
 import BenefitsCard from "../../components/BenefitsCard";
-
-type CartItem = {
-  id: string;
-  name: string;
-  slug: string;
-  image: string;
-  color: string;
-  size: string;
-  quantity: number;
-  price: number;
-  discountPrice?: number | null;
-};
-
-const sampleItems: CartItem[] = [
-  {
-    id: "cart-A-xl-black",
-    name: "Syltherine",
-    slug: "syltherine",
-    image: "/OurProducts/Syltherine.png",
-    color: "#816DFA",
-    size: "xl",
-    quantity: 2,
-    price: 2500000,
-    discountPrice: 30,
-  },
-  {
-    id: "cart-B-black-m",
-    name: "Leviosa",
-    slug: "leviosa",
-    image: "/OurProducts/Leviosa.png",
-    color: "#000000",
-    size: "m",
-    quantity: 1,
-    price: 2500000,
-    discountPrice: null,
-  },
-];
+import { useCart } from "../../context/useCart";
 
 const formatRs = (value: number) =>
   new Intl.NumberFormat("en-US", {
@@ -49,7 +12,7 @@ const formatRs = (value: number) =>
   }).format(value);
 
 const Cart = () => {
-  const [items, setItems] = useState<CartItem[]>(sampleItems);
+  const { items, updateQuantity, removeItem } = useCart();
 
   const subtotal = items.reduce((sum, item) => {
     const itemPrice = item.discountPrice
@@ -60,20 +23,6 @@ const Cart = () => {
 
   const shipping = 0;
   const total = subtotal + shipping;
-
-  const updateQuantity = (id: string, quantity: number) => {
-    setItems((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? { ...item, quantity: quantity < 1 ? 1 : quantity }
-          : item,
-      ),
-    );
-  };
-
-  const removeItem = (id: string) => {
-    setItems((prev) => prev.filter((item) => item.id !== id));
-  };
 
   return (
     <Container className="bg-[#FFF]">
@@ -128,12 +77,16 @@ const Cart = () => {
 
                 <div className="space-y-4 xl:space-y-3 xl:pt-10">
                   {items.length === 0 ? (
-                    <div
-                      className={clsx(
-                        "p-10 text-center text-[16px] font-poppins text-[#9F9F9F]",
-                      )}
-                    >
-                      Your cart is empty.
+                    <div className="flex min-h-[220px] flex-col items-center justify-center gap-6 p-10 text-center font-poppins">
+                      <p className="text-[18px] text-[#9F9F9F]">
+                        Your cart is empty.
+                      </p>
+                      <Link
+                        to="/"
+                        className="inline-flex h-12 items-center justify-center rounded-[10px] border border-black px-8 text-[16px] font-medium text-black transition hover:bg-[#F9F1E7]"
+                      >
+                        Go to Shop
+                      </Link>
                     </div>
                   ) : (
                     items.map((item) => {
@@ -156,7 +109,19 @@ const Cart = () => {
                               )}
                             />
                           </div>
-                          <p className="col-start-2 row-start-1 self-end font-medium text-black sm:self-center xl:col-auto xl:row-auto xl:font-normal xl:text-[#9F9F9F]">{item.name}</p>
+                          <div className="col-start-2 row-start-1 self-end sm:self-center xl:col-auto xl:row-auto">
+                            <p className="font-medium text-black xl:font-normal xl:text-[#9F9F9F]">
+                              {item.name}
+                            </p>
+                            <div className="mt-1 flex items-center gap-2 text-[12px] text-[#9F9F9F]">
+                              <span
+                                className="h-3 w-3 rounded-full border border-black/10"
+                                style={{ backgroundColor: item.color }}
+                                aria-label={`Color ${item.color}`}
+                              />
+                              <span>{item.size.toUpperCase()}</span>
+                            </div>
+                          </div>
 
                           <div className="col-start-2 row-start-2 text-[#9F9F9F] xl:col-auto xl:row-auto">
                             <span className="mr-1 xl:hidden">Price:</span>

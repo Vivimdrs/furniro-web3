@@ -1,16 +1,13 @@
 ﻿import clsx from "clsx";
 
+import type { AddCartItem } from "../../context/cartStore";
+import { useCart } from "../../context/useCart";
+
 type SingleProductQuantityProps = {
   currentQuantity: number;
   handlePlusQuantity: () => void;
   handleMinusQuantity: () => void;
-  SingleProductCartProps: {
-    name: string;
-    image: string;
-    color: string;
-    size: string;
-    quantity: number;
-  };
+  SingleProductCartProps: AddCartItem;
 };
 
 const SingleProductQuantity = ({
@@ -19,8 +16,10 @@ const SingleProductQuantity = ({
   handleMinusQuantity,
   SingleProductCartProps,
 }: SingleProductQuantityProps) => {
+  const { addItem } = useCart();
+
   const handleAddToCart = () => {
-    console.log(JSON.stringify(SingleProductCartProps, null, 2));
+    addItem(SingleProductCartProps);
   };
 
   return (
