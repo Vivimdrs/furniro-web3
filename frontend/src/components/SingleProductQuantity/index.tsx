@@ -1,16 +1,13 @@
-import clsx from "clsx";
+﻿import clsx from "clsx";
+
+import type { AddCartItem } from "../../context/cartStore";
+import { useCart } from "../../context/useCart";
 
 type SingleProductQuantityProps = {
   currentQuantity: number;
   handlePlusQuantity: () => void;
   handleMinusQuantity: () => void;
-  SingleProductCartProps: {
-    name: string;
-    image: string;
-    color: string;
-    size: string;
-    quantity: number;
-  };
+  SingleProductCartProps: AddCartItem;
 };
 
 const SingleProductQuantity = ({
@@ -19,28 +16,52 @@ const SingleProductQuantity = ({
   handleMinusQuantity,
   SingleProductCartProps,
 }: SingleProductQuantityProps) => {
-  //Para implementar a função de chamada para o Cart
+  const { addItem } = useCart();
+
   const handleAddToCart = () => {
-    console.log(JSON.stringify(SingleProductCartProps, null, 2));
+    addItem(SingleProductCartProps);
   };
+
   return (
-    <div className={clsx("my-8 font-poppins text-[16px]", "flex gap-4.5")}>
+    <div
+      className={clsx(
+        "my-8 font-poppins text-[16px] flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between",
+      )}
+    >
       <div
         className={clsx(
-          "flex justify-around items-center w-30.75 h-16",
-          "border-[#9F9F9F] border",
-          "rounded-[10px]",
-          "font-medium",
+          "flex items-center justify-between w-[106.54px] h-[47px] rounded-[10px] border border-[#9F9F9F] px-1",
         )}
       >
         <button
+          type="button"
+          aria-label="Diminuir quantidade"
           onClick={handleMinusQuantity}
-          className={clsx("cursor-pointer")}
+          className={clsx(
+            "w-[38px] h-[38px] rounded-[8px] border border-[#9F9F9F] text-[20px] font-semibold text-[#3A3A3A]",
+            "flex items-center justify-center hover:bg-[#E5E5E5] transition",
+            "focus:outline-2 focus:outline-over-secundary",
+          )}
         >
           -
         </button>
-        <h1>{currentQuantity}</h1>
-        <button onClick={handlePlusQuantity} className={clsx("cursor-pointer")}>
+        <span
+          className={clsx(
+            "text-[16px] font-semibold font-poppins text-[#3A3A3A]",
+          )}
+        >
+          {currentQuantity}
+        </span>
+        <button
+          type="button"
+          aria-label="Aumentar quantidade"
+          onClick={handlePlusQuantity}
+          className={clsx(
+            "w-[38px] h-[38px] rounded-[8px] border border-[#9F9F9F] text-[20px] font-semibold text-[#3A3A3A]",
+            "flex items-center justify-center hover:bg-[#E5E5E5] transition",
+            "focus:outline-2 focus:outline-over-secundary",
+          )}
+        >
           +
         </button>
       </div>
@@ -52,7 +73,7 @@ const SingleProductQuantity = ({
           "text-[20px]",
           "cursor-pointer hover:transform hover:scale-105 transition",
         )}
-        onClick={() => handleAddToCart()}
+        onClick={handleAddToCart}
       >
         Add To Cart
       </button>

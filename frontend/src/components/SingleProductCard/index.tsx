@@ -62,6 +62,8 @@ const SingleProductCard = ({ produto }: SingleProductCardProps) => {
   const priceWithSizeAndQuantity =
     (produto.price + (produto.price * (sizePrice[productStages.size.toLowerCase()] ?? 0)) / 100) *
     productStages.quantity;
+  const priceWithSize =
+    produto.price + (produto.price * sizePrice[productStages.size]) / 100;
 
   return (
     <div className={clsx("font-poppins", "max-w-150 md:w-full")}>
@@ -105,7 +107,13 @@ const SingleProductCard = ({ produto }: SingleProductCardProps) => {
         currentQuantity={productStages.quantity}
         handlePlusQuantity={handlePlusQuantity}
         handleMinusQuantity={handleMinusQuantity}
-        SingleProductCartProps={productStages}
+        SingleProductCartProps={{
+          ...productStages,
+          productId: produto.id,
+          slug: produto.slug,
+          price: priceWithSize,
+          discountPrice: produto.discountPrice,
+        }}
       ></SingleProductQuantity>
       <div
         className={clsx(

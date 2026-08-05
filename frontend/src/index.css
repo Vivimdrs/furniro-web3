@@ -21,8 +21,8 @@
 
 @theme {
   --breakpoint-xxs: 400px;
-  --font-montserrat: "Montserrat";
-  --font-poppins: "Poppins";
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
 
   --color-primary: var(--primary);
   --color-over-primary: var(--over-primary);
