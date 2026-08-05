@@ -5,6 +5,7 @@ import Container from "../../components/Container";
 import BenefitsCard from "../../components/BenefitsCard";
 import { useCart } from "../../context/useCart";
 import toast from "react-hot-toast";
+import BannerCard from "../../components/BannerCard";
 
 const formatRs = (value: number) =>
   new Intl.NumberFormat("en-US", {
@@ -28,36 +29,10 @@ const Cart = () => {
   return (
     <Container className="bg-[#FFF]">
       <div className="w-full overflow-x-clip font-poppins leading-normal">
-        <section
-          className={clsx(
-            "relative min-h-[260px] overflow-hidden bg-cover bg-center md:min-h-[316px]",
-          )}
-          style={{ backgroundImage: "url('/Images/Background-Banner.svg')" }}
-        >
-          <div
-            className={clsx(
-              "absolute inset-0 flex flex-col items-center justify-center px-6 text-center",
-            )}
-          >
-            <img
-              src="/Logo/Logo.svg"
-              alt="Furniro logo"
-              className="h-16 w-16 object-contain md:h-[77px] md:w-[77px]"
-            />
-            <h1
-              className={clsx(
-                "-mt-3 text-[40px] font-medium leading-normal text-black md:-mt-4 md:text-[48px] md:leading-[72px]",
-              )}
-            >
-              Cart
-            </h1>
-            <div className="mt-1 flex items-center gap-2 text-[16px] text-black">
-              <span className="font-medium">Home</span>
-              <span className="text-[22px]">›</span>
-              <span className="font-light">Cart</span>
-            </div>
-          </div>
-        </section>
+        <BannerCard
+          title="Cart"
+          breadcrumbs={[{ label: "Home", href: "/" }, { label: "Cart" }]}
+        />
 
         <main className="mx-auto box-border min-h-[525px] w-full max-w-[1240px] px-4 py-10 md:py-[72px]">
           <div className="grid w-full min-w-0 gap-[30px] xl:grid-cols-[817px_393px]">
