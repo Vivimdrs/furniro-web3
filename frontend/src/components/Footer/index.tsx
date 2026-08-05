@@ -11,10 +11,10 @@ const Footer = () => {
   };
 
   return (
-    <footer className={clsx("py-25 pt-12 pb-9.5 px-4", "font-poppins")}>
+    <footer className={clsx("min-h-[505px] w-full px-4 pb-9.5 pt-12 font-poppins lg:px-[100px]")}>
       <div
         className={clsx(
-          "flex flex-wrap gap-10 justify-between",
+          "grid gap-10 md:grid-cols-2 lg:grid-cols-[393px_177px_177px_1fr]",
           "border-b border-b-[rgba(0,0,0,0.17)]",
           "pb-12",
         )}
@@ -26,60 +26,6 @@ const Footer = () => {
             <br />
             FL 33134 USA
           </p>
-          <div className={clsx("flex gap-4 py-3.75")}>
-            <a
-              className={clsx(
-                "h-8.5 w-8.5",
-                "rounded-full",
-                "flex justify-center items-center",
-                "shadow-[0px_4px_14px_rgba(0,0,0,0.15)]",
-                "cursor-pointer hover:scale-110 transition",
-              )}
-              href="https://www.facebook.com/compass.uol/?locale=pt_BR"
-              target="_blank"
-            >
-              <img src="/Social/facebook.png" alt="" />
-            </a>
-            <a
-              className={clsx(
-                "h-8.5 w-8.5",
-                "rounded-full",
-                "flex justify-center items-center",
-                "shadow-[0px_4px_14px_rgba(0,0,0,0.15)]",
-                "cursor-pointer hover:scale-110 transition",
-              )}
-              href="https://www.instagram.com/compass.uol/"
-              target="_blank"
-            >
-              <img src="/Social/instagram.png" alt="" />
-            </a>
-            <a
-              className={clsx(
-                "h-8.5 w-8.5",
-                "rounded-full",
-                "flex justify-center items-center",
-                "shadow-[0px_4px_14px_rgba(0,0,0,0.15)]",
-                "cursor-pointer hover:scale-110 transition",
-              )}
-              href="https://x.com/compassuol"
-              target="_blank"
-            >
-              <img src="/Social/twitter.png" alt="" />
-            </a>
-            <a
-              className={clsx(
-                "h-8.5 w-8.5",
-                "rounded-full",
-                "flex justify-center items-center",
-                "shadow-[0px_4px_14px_rgba(0,0,0,0.15)]",
-                "cursor-pointer hover:scale-110 transition",
-              )}
-              href="https://www.linkedin.com/company/compass-uol/posts/?feedView=all"
-              target="_blank"
-            >
-              <img src="/Social/linkedin.png" alt="" />
-            </a>
-          </div>
         </div>
         <div>
           <h1
@@ -153,17 +99,22 @@ const Footer = () => {
                 "border-b border-b-black",
                 "cursor-pointer hover:opacity-70",
               )}
-              onClick={()=>{
-                validateEmail(email) ? toast.success("You are subscribed.") : toast.error("Invalid email.");
+              onClick={() => {
+                if (validateEmail(email)) {
+                  toast.success("You are subscribed.");
+                } else {
+                  toast.error("Invalid email.");
+                }
               }}
             >
               SUBSCRIBE
             </button>
-          
           </form>
         </div>
       </div>
-      <p className={clsx("mt-8.75", "text-[16px]")}>2023 furino. All rights reverved</p>
+      <p className={clsx("mt-8.75", "text-[16px]")}>
+        2023 furino. All rights reverved
+      </p>
     </footer>
   );
 };

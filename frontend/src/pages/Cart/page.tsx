@@ -1,8 +1,9 @@
 ﻿import { Link } from "react-router-dom";
 import { useState } from "react";
+import { AiOutlineDelete } from "react-icons/ai";
 import clsx from "clsx";
 import Container from "../../components/Container";
-import NumberToStringRP from "../../utils/NumberToStringRP";
+import BenefitsCard from "../../components/BenefitsCard";
 
 type CartItem = {
   id: string;
@@ -41,6 +42,12 @@ const sampleItems: CartItem[] = [
   },
 ];
 
+const formatRs = (value: number) =>
+  new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(value);
+
 const Cart = () => {
   const [items, setItems] = useState<CartItem[]>(sampleItems);
 
@@ -50,6 +57,9 @@ const Cart = () => {
       : item.price;
     return sum + itemPrice * item.quantity;
   }, 0);
+
+  const shipping = 0;
+  const total = subtotal + shipping;
 
   const updateQuantity = (id: string, quantity: number) => {
     setItems((prev) =>
@@ -66,163 +76,185 @@ const Cart = () => {
   };
 
   return (
-    <Container>
-      <div className={clsx("pt-10 pb-20 px-4 w-full")}>
-        <div className={clsx("max-w-360 mx-auto", "space-y-6")}>
-          <h1 className={clsx("text-[42px] font-semibold font-poppins text-primary-text-200 mb-2")}>Carrinho</h1>
+    <Container className="bg-[#FFF]">
+      <div className="w-full">
+        <section
+          className={clsx(
+            "relative min-h-[316px] overflow-hidden bg-cover bg-center",
+          )}
+          style={{ backgroundImage: "url('/Images/Background-Banner.svg')" }}
+        >
+          <div
+            className={clsx(
+              "absolute inset-0 flex flex-col items-center justify-center px-6 text-center",
+            )}
+          >
+            <img
+              src="/Logo/Logo.svg"
+              alt="Furniro logo"
+              className="h-[77px] w-[77px] object-contain"
+            />
+            <h1
+              className={clsx(
+                "-mt-4 text-[48px] font-medium leading-[72px] text-black",
+              )}
+            >
+              Cart
+            </h1>
+            <div className="mt-1 flex items-center gap-2 text-[16px] text-black">
+              <span className="font-medium">Home</span>
+              <span className="text-[22px]">›</span>
+              <span className="font-light">Cart</span>
+            </div>
+          </div>
+        </section>
 
-          <div className={clsx("space-y-6")}>
-            <div className={clsx("grid gap-6 lg:grid-cols-[1.8fr_1fr]")}>
-              <div className={clsx("space-y-6")}>
-                {items.length === 0 && (
-                  <div className={clsx("bg-card-product p-8 rounded-[20px] text-center text-[16px] font-poppins text-over-card-product")}>
-                    Seu carrinho está vazio.
-                  </div>
-                )}
-                {items.map((item) => {
-                  const itemPrice = item.discountPrice
-                    ? item.price - item.price * (item.discountPrice / 100)
-                    : item.price;
-                  return (
+        <main className="mx-auto min-h-[525px] max-w-[1240px] px-4 py-[72px]">
+          <div className="grid gap-[30px] xl:grid-cols-[817px_393px]">
+            <div className="min-w-0 overflow-x-auto">
+              <div className="min-w-[817px] bg-white">
+                <div
+                  className={clsx(
+                    "grid h-[55px] grid-cols-[142px_177px_156px_106px_162px_74px] items-center bg-[#F9F1E7] text-[16px] font-medium text-black",
+                  )}
+                >
+                  <div />
+                  <div>Product</div>
+                  <div>Price</div>
+                  <div>Quantity</div>
+                  <div>Subtotal</div>
+                  <div />
+                </div>
+
+                <div className="space-y-3 pt-10">
+                  {items.length === 0 ? (
                     <div
-                      key={item.id}
                       className={clsx(
-                        "bg-card-product p-6 rounded-[20px] flex flex-col sm:flex-row gap-6",
+                        "p-10 text-center text-[16px] font-poppins text-[#9F9F9F]",
                       )}
                     >
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className={clsx(
-                          "w-full sm:w-40 h-40 object-cover rounded-[15px]",
-                        )}
-                      />
-                      <div
-                        className={clsx("flex-1 flex flex-col justify-between")}
-                      >
-                        <div className={clsx("space-y-2")}>
+                      Your cart is empty.
+                    </div>
+                  ) : (
+                    items.map((item) => {
+                      const itemPrice = item.discountPrice
+                        ? item.price - item.price * (item.discountPrice / 100)
+                        : item.price;
+                      return (
+                        <div
+                          key={item.id}
+                          className={clsx(
+                            "grid min-h-[105px] grid-cols-[142px_177px_156px_106px_162px_74px] items-center bg-white text-[16px]",
+                          )}
+                        >
+                          <div className="flex h-[105px] w-[105px] items-center justify-center rounded-[10px] bg-[#B88E2F]/20">
+                            <img
+                              src={item.image}
+                              alt={item.name}
+                              className={clsx(
+                                "h-[95px] w-[105px] object-contain",
+                              )}
+                            />
+                          </div>
+                          <p className="text-[#9F9F9F]">{item.name}</p>
+
+                          <div className={clsx("text-[#9F9F9F]")}>
+                            Rs. {formatRs(itemPrice)}
+                          </div>
+
                           <div
                             className={clsx(
-                              "flex flex-wrap gap-2 items-center",
+                              "flex h-[47px] w-[106px] items-center justify-between rounded-[10px] border border-[#9F9F9F] px-2",
                             )}
                           >
-                            <h2 className={clsx("text-[24px] font-semibold font-poppins text-primary-text-200")}>
-                              {item.name}
-                            </h2>
-                            <span
-                              className={clsx("text-[16px] font-medium font-poppins text-over-card-product")}
+                            <button
+                              type="button"
+                              aria-label="Decrease quantity"
+                              onClick={() =>
+                                updateQuantity(item.id, item.quantity - 1)
+                              }
+                              className={clsx(
+                                "flex h-full w-6 items-center justify-center text-[16px] hover:text-[#B88E2F]",
+                              )}
                             >
-                              {item.slug}
+                              -
+                            </button>
+                            <span
+                              className={clsx(
+                                "text-[16px] font-medium text-black",
+                              )}
+                            >
+                              {item.quantity}
                             </span>
+                            <button
+                              type="button"
+                              aria-label="Increase quantity"
+                              onClick={() =>
+                                updateQuantity(item.id, item.quantity + 1)
+                              }
+                              className={clsx(
+                                "flex h-full w-6 items-center justify-center text-[16px] hover:text-[#B88E2F]",
+                              )}
+                            >
+                              +
+                            </button>
                           </div>
-                          <p className={clsx("text-[16px] font-poppins text-over-card-product")}>
-                            Cor: {item.color}
-                          </p>
-                          <p className={clsx("text-[16px] font-poppins text-over-card-product")}>
-                            Tamanho: {item.size}
-                          </p>
-                        </div>
-                        <div className={clsx("flex items-center gap-3")}>
-                          <button
-                            onClick={() =>
-                              updateQuantity(item.id, item.quantity - 1)
-                            }
-                            className={clsx(
-                              "w-10 h-10 rounded-[10px] border border-[#9F9F9F] text-[20px]",
-                              "flex items-center justify-center hover:bg-[#E5E5E5] transition",
-                            )}
-                          >
-                            -
-                          </button>
-                          <div
-                            className={clsx(
-                              "px-3 py-2 border border-[#E5E5E5] rounded-[8px] text-[16px] font-semibold",
-                            )}
-                          >
-                            {item.quantity}
+
+                          <div className={clsx("text-black")}>
+                            Rs. {formatRs(itemPrice * item.quantity)}
                           </div>
+
                           <button
-                            onClick={() =>
-                              updateQuantity(item.id, item.quantity + 1)
-                            }
-                            className={clsx(
-                              "w-10 h-10 rounded-[10px] border border-[#9F9F9F] text-[20px]",
-                              "flex items-center justify-center hover:bg-[#E5E5E5] transition",
-                            )}
-                          >
-                            +
-                          </button>
-                        </div>
-                        <div className={clsx("mt-3")}>
-                          <button
+                            type="button"
+                            aria-label="Remove item"
                             onClick={() => removeItem(item.id)}
                             className={clsx(
-                              "text-[#E97171] text-[14px] font-semibold",
-                              "hover:underline",
+                              "flex h-10 w-10 items-center justify-center text-[#B88E2F] transition hover:bg-[#F8E6C5]",
                             )}
                           >
-                            Remover
+                            <AiOutlineDelete size={28} />
                           </button>
                         </div>
-                      </div>
-                      <div className={clsx("flex flex-col justify-between")}>
-                        <div className={clsx("text-right")}>
-                          <p className={clsx("text-[16px] font-poppins text-over-card-product")}>
-                            Preço unitário
-                          </p>
-                          <p className={clsx("text-[24px] font-semibold font-poppins text-primary-text-200")}>
-                            R$ {NumberToStringRP(itemPrice)}
-                          </p>
-                        </div>
-                        <div className={clsx("text-right")}>
-                          <p className={clsx("text-[16px] font-poppins text-over-card-product")}>Total</p>
-                          <p className={clsx("text-[24px] font-semibold font-poppins text-primary-text-200")}>
-                            R$ {NumberToStringRP(itemPrice * item.quantity)}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
+                      );
+                    })
+                  )}
+                </div>
               </div>
+            </div>
 
-              <aside
-                className={clsx(
-                  "bg-card-product p-6 rounded-[20px] flex flex-col gap-6",
-                )}
-              >
-                <div className={clsx("flex justify-between items-center")}>
-                  <span className={clsx("text-[16px] font-poppins text-over-card-product")}>
-                    Subtotal
+            <aside className="h-[390px] bg-[#F9F1E7] px-[75px] pt-[15px]">
+              <div>
+                <h2 className="whitespace-nowrap text-center text-[32px] font-semibold text-black">
+                  Cart Totals
+                </h2>
+                <div className="mt-[63px] flex items-center justify-between text-[16px]">
+                  <span className="font-medium text-black">Subtotal</span>
+                  <span className="text-[#9F9F9F]">
+                    Rs. {formatRs(subtotal)}
                   </span>
-                  <strong className={clsx("text-[24px] font-semibold font-poppins text-primary-text-200")}>
-                    R$ {NumberToStringRP(subtotal)}
-                  </strong>
+                </div>
+                <div className="mt-[31px] flex items-center justify-between text-[16px]">
+                  <span className="font-medium text-black">Total</span>
+                  <span className="whitespace-nowrap text-[20px] font-medium text-[#B88E2F]">
+                    Rs. {formatRs(total)}
+                  </span>
                 </div>
                 <Link
                   to={items.length === 0 ? "#" : "/checkout"}
                   onClick={(e) => items.length === 0 && e.preventDefault()}
                   className={clsx(
-                    "w-full text-center text-white bg-primary text-[16px] font-semibold py-4 rounded-[15px]",
-                    "hover:bg-over-secundary transition",
+                    "mx-auto mt-[50px] inline-flex h-[59px] w-[222px] items-center justify-center rounded-[15px] border border-black bg-transparent text-[20px] text-black transition hover:bg-white/50",
                     items.length === 0 && "opacity-50 cursor-not-allowed",
                   )}
                 >
-                  Finalizar compra
+                  Check Out
                 </Link>
-                <Link
-                  to="/"
-                  className={clsx(
-                    "w-full text-center text-primary text-[16px] font-semibold py-4 rounded-[15px] border border-[#9F9F9F]",
-                    "hover:bg-[#E5E5E5] transition",
-                  )}
-                >
-                  Continuar comprando
-                </Link>
-              </aside>
-            </div>
+              </div>
+            </aside>
           </div>
-        </div>
+        </main>
+
+        <BenefitsCard />
       </div>
     </Container>
   );
