@@ -5,18 +5,18 @@ import 'dotenv/config'
 const prisma = new PrismaClient()
 
 const allImages = [
-  "/public/images/products/product-1.svg",
-  "/public/images/products/product-2.svg",
-  "/public/images/products/product-3.svg",
-  "/public/images/products/product-4.svg",
-  "/public/images/products/product-5.svg",
-  "/public/images/products/product-6.svg",
-  "/public/images/products/product-7.svg",
-  "/public/images/products/product-8.svg",
-  "/public/images/products/product-9.svg",
-  "/public/images/products/product-10.svg",
-  "/public/images/products/product-11.svg",
-  "/public/images/products/product-12.svg",
+  "/images/products/product-1.svg",
+  "/images/products/product-2.svg",
+  "/images/products/product-3.svg",
+  "/images/products/product-4.svg",
+  "/images/products/product-5.svg",
+  "/images/products/product-6.svg",
+  "/images/products/product-7.svg",
+  "/images/products/product-8.svg",
+  "/images/products/product-9.svg",
+  "/images/products/product-10.svg",
+  "/images/products/product-11.svg",
+  "/images/products/product-12.svg",
 ]
 
 const categories = ['dining', 'living', 'bedroom'] as const
@@ -32,7 +32,7 @@ async function main() {
   await prisma.product.deleteMany()
 
   const products = Array.from({ length: 30 }).map((_, i) => {
-    const name = faker.commerce.productName()
+    const name = faker.commerce.productName().split(' ').slice(0, 2).join(' ')
     const category = categories[i % 3] as string
 
     return {
@@ -43,7 +43,7 @@ async function main() {
       shortDescription: truncate(faker.commerce.productDescription(), 100),
       price: parseFloat(faker.commerce.price({ min: 500, max: 5000 })),
       discountPrice: faker.datatype.boolean()
-        ? parseFloat(faker.commerce.price({ min: 200, max: 499 }))
+        ? faker.number.int({ min: 5, max: 50 })
         : null,
       category,
       rating: parseFloat((Math.random() * 2 + 3).toFixed(1)),

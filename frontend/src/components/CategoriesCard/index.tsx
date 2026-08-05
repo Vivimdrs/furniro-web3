@@ -1,12 +1,14 @@
 import clsx from "clsx";
+import { Link } from "react-router-dom";
 
 type CategoriesCardProps = {
   image: string;
   label: string;
+  to: string;
 };
-const CategoriesCard = ({ image, label }: CategoriesCardProps) => {
+const CategoriesCard = ({ image, label, to }: CategoriesCardProps) => {
   return (
-    <div className={clsx("flex flex-col gap-7.5 items-center", "group")}>
+    <Link to={to} className={clsx("flex flex-col gap-7.5 items-center", "group")}>
       <div
         className={clsx(
           "h-120 w-[90vw]",
@@ -31,7 +33,7 @@ const CategoriesCard = ({ image, label }: CategoriesCardProps) => {
       >
         {label}
       </h1>
-    </div>
+    </Link>
   );
 };
 export default CategoriesCard;

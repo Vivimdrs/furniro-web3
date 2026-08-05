@@ -6,6 +6,8 @@ import type Product from "../../interface/Product";
 import { Link } from "react-router-dom";
 import NumberToStringRP from "../../utils/NumberToStringRP";
 
+const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
+
 interface OurProductsCardProp {
   produto: Product;
 }
@@ -28,12 +30,13 @@ const OurProductsCard = ({produto}:OurProductsCardProp) => {
     >
       <div
         className={clsx("w-full h-75.25", "relative")}
-        style={{ backgroundImage: `url(${produto.images[0]})` }}
+        style={{ backgroundImage: `url(${API_URL}${produto.images[0]})` }}
       >
-        {produto.discountPrice && (
+        {produto.discountPrice ? (
           <div className={clsx("bg-[#E97171]", commonClass)}>-{produto.discountPrice}%</div>
-        )}
-        {produto.isNew && <div className={clsx("bg-[#2EC1AC]", commonClass)}>New</div>}
+        ) : produto.isNew ? (
+          <div className={clsx("bg-[#2EC1AC]", commonClass)}>New</div>
+        ) : null}
       </div>
       <h1
         className={clsx(
