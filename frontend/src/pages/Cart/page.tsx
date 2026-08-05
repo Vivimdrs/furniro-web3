@@ -4,6 +4,7 @@ import clsx from "clsx";
 import Container from "../../components/Container";
 import BenefitsCard from "../../components/BenefitsCard";
 import { useCart } from "../../context/useCart";
+import toast from "react-hot-toast";
 
 const formatRs = (value: number) =>
   new Intl.NumberFormat("en-US", {
@@ -100,7 +101,7 @@ const Cart = () => {
                             "relative grid min-h-[145px] max-w-full grid-cols-[88px_minmax(0,1fr)] gap-x-3 gap-y-2 rounded-[10px] border border-[#F0E7DB] bg-white p-3 pr-12 text-[14px] sm:grid-cols-[105px_minmax(0,1fr)] sm:text-[16px] xl:min-h-[105px] xl:grid-cols-[142px_177px_156px_106px_162px_74px] xl:gap-0 xl:rounded-none xl:border-0 xl:p-0",
                           )}
                         >
-                          <div className="row-span-4 flex h-[88px] w-[88px] items-center justify-center self-start rounded-[10px] bg-[#B88E2F]/20 sm:h-[105px] sm:w-[105px] xl:row-auto xl:self-center">
+                          <div className="row-span-4 flex h-[88px] w-[88px] items-center justify-center self-start sm:h-[105px] sm:w-[105px] xl:row-auto xl:self-center">
                             <img
                               src={item.image}
                               alt={item.name}
@@ -210,16 +211,19 @@ const Cart = () => {
                     Rs. {formatRs(total)}
                   </span>
                 </div>
-                <Link
-                  to={items.length === 0 ? "#" : "/checkout"}
-                  onClick={(e) => items.length === 0 && e.preventDefault()}
+                <button
+                  type="button"
+                  disabled={items.length === 0}
+                  onClick={() => {
+                    toast.success("check-out realizado com sucesso!");
+                  }}
                   className={clsx(
                     "mx-auto mt-[50px] inline-flex h-[59px] w-full max-w-[222px] items-center justify-center rounded-[15px] border border-black bg-transparent text-[20px] text-black transition hover:bg-white/50",
                     items.length === 0 && "opacity-50 cursor-not-allowed",
                   )}
                 >
                   Check Out
-                </Link>
+                </button>
               </div>
             </aside>
           </div>
