@@ -21,6 +21,7 @@ const SingleProductColor = ({
               className={clsx(
                 "w-7.5 h-7.5 rounded-full",
                 "cursor-pointer",
+                "border border-[#e0e0e0]",
                 "flex justify-center items-center",{
                   "scale-125": selectedColor === color,
                 }

@@ -8,7 +8,7 @@ const NotFound = () => {
         404
       </h1>
       <p className={clsx("text-primary-text-100 text-[20px] font-poppins")}>
-        Produto não encontrado
+        Product not found
       </p>
       <Link
         to="/shop"
@@ -20,7 +20,7 @@ const NotFound = () => {
           "hover:bg-over-secundary hover:text-secundary transition"
         )}
       >
-        Ver todos os produtos
+        View all products
       </Link>
     </div>
   );
