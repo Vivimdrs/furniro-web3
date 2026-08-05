@@ -11,7 +11,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className={clsx("min-h-[505px] w-full px-4 pb-9.5 pt-12 font-poppins lg:px-[100px]")}>
+    <footer className={clsx("min-h-[505px] w-full px-4 pb-9.5 pt-12 font-poppins leading-normal lg:px-[100px]")}>
       <div
         className={clsx(
           "grid gap-10 md:grid-cols-2 lg:grid-cols-[393px_177px_177px_1fr]",

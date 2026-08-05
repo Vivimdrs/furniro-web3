@@ -12,7 +12,7 @@ const NavMenu = ({ className, children }: NavMenuProps) => {
       className={clsx(
         "w-107.5",
         "flex justify-around",
-        "font-poppins text-[16px] text-over-primary",
+        "font-poppins text-[16px] font-medium leading-normal text-over-primary",
         "lg:justify-between",
         className,
       )}

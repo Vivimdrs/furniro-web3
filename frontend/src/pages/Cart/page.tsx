@@ -77,7 +77,7 @@ const Cart = () => {
 
   return (
     <Container className="bg-[#FFF]">
-      <div className="w-full">
+      <div className="w-full font-poppins leading-normal">
         <section
           className={clsx(
             "relative min-h-[316px] overflow-hidden bg-cover bg-center",

@@ -11,7 +11,7 @@ const Logo = ({ className }: LogoProps) => {
         alt="Logo furniro"
         className={clsx("w-12.5 h-8")}
       />
-      <h1 className={clsx("font-montserrat font-bold text-[34px]")}>Furniro</h1>
+      <h1 className={clsx("font-montserrat text-[34px] font-bold leading-normal")}>Furniro</h1>
     </div>
   );
 };
