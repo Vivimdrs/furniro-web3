@@ -167,7 +167,9 @@ const Cart = () => {
                           </div>
 
                           <div className="col-start-2 row-start-4 font-medium text-black xl:col-auto xl:row-auto xl:font-normal">
-                            <span className="mr-1 text-[#9F9F9F] xl:hidden">Subtotal:</span>
+                            <span className="mr-1 text-[#9F9F9F] xl:hidden">
+                              Subtotal:
+                            </span>
                             Rs. {formatRs(itemPrice * item.quantity)}
                           </div>
 
@@ -195,7 +197,9 @@ const Cart = () => {
                   Cart Totals
                 </h2>
                 <div className="mt-[63px] flex min-w-0 flex-col items-start gap-1 text-[16px] sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-                  <span className="shrink-0 font-medium text-black">Subtotal</span>
+                  <span className="shrink-0 font-medium text-black">
+                    Subtotal
+                  </span>
                   <span className="max-w-full text-[14px] text-[#9F9F9F] sm:text-right sm:text-[16px]">
                     Rs. {formatRs(subtotal)}
                   </span>
