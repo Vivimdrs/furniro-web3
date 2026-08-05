@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import { Route, Routes } from "react-router-dom";
 import Product from "./pages/Product/page";
 import Shop from "./pages/Shop/page";
+import Cart from "./pages/Cart/page";
 
 const App = () => {
     return (
@@ -15,11 +16,11 @@ const App = () => {
             <Container className="bg-[#FFF]">
                 <Header />
             </Container>
-
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/shop/:category?" element={<Shop />} />
                 <Route path="/product/:slug" element={<Product />} />
+                <Route path="/cart" element={<Cart />} />
             </Routes>
             <Container className="bg-primary border-t border-t-[rgba(0,0,0,0.17)]">
                 <Footer />

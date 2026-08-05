@@ -5,10 +5,11 @@ import Container from "../../components/Container";
 import SingleProductImages from "../../components/SingleProductImages";
 import SingleProductCard from "../../components/SingleProductCard";
 import clsx from "clsx";
-import SingleProductCardAdditional from "../../SingleProductCardAdditional";
+import SingleProductCardAdditional from "../../components/SingleProductCardAdditional";
 import OurProducts from "../../components/OurProducts";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import NotFound from "../../components/NotFound";
+import MenuSingleProduct from "../../components/MenuSingleProduct";
 
 const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
@@ -34,9 +35,11 @@ const ProductPage = () => {
 
     if (notFound) return <NotFound />;
     if (!product) return <LoadingSpinner />;
-
     return (
         <div>
+           <Container className={clsx("bg-[#F9F1E7] w-max-[144px] h-25 flex items-center justify-center px-2 md:px-0")}>
+              <MenuSingleProduct productName={product.name} />
+            </Container>  
             <Container className={clsx("border-b border-[#9f9f9f]")}>
                 <div
                     className={clsx(
