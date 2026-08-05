@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import type Product from "../../interface/Product";
+import type ProductType from "../../interface/Product";
 
 // Requisição ainda sem banco
 import seedProducts from "../../db/Seed/Seed.json";
@@ -9,13 +9,13 @@ import SingleProductCard from "../../components/SingleProductCard";
 import clsx from "clsx";
 import SingleProductCardAdditional from "../../SingleProductCardAdditional";
 import OurProducts from "../../components/OurProducts";
-const products: Product[] = seedProducts.map((product) => ({
+const products: ProductType[] = seedProducts.map((product) => ({
   ...product,
   createdAt: new Date(product.createdAt),
   updatedAt: new Date(product.updatedAt),
 }));
 
-const Product = () => {
+const ProductPage = () => {
   const { slug } = useParams();
 
   // Requisição ainda sem banco
@@ -45,10 +45,13 @@ const Product = () => {
         ></SingleProductCardAdditional>
       </Container>
       <Container className={clsx("py-10")}>
-        <OurProducts title="Related Products" font="font-semibold"></OurProducts>
+        <OurProducts
+          title="Related Products"
+          font="font-semibold"
+        ></OurProducts>
       </Container>
     </div>
   );
 };
 
-export default Product;
+export default ProductPage;

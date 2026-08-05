@@ -1,4 +1,4 @@
-import clsx from "clsx";
+﻿import clsx from "clsx";
 
 type SingleProductQuantityProps = {
   currentQuantity: number;
@@ -19,10 +19,10 @@ const SingleProductQuantity = ({
   handleMinusQuantity,
   SingleProductCartProps,
 }: SingleProductQuantityProps) => {
-  //Para implementar a função de chamada para o Cart
   const handleAddToCart = () => {
     console.log(JSON.stringify(SingleProductCartProps, null, 2));
   };
+
   return (
     <div className={clsx("my-8 font-poppins text-[16px]", "flex gap-4.5")}>
       <div
@@ -52,7 +52,7 @@ const SingleProductQuantity = ({
           "text-[20px]",
           "cursor-pointer hover:text-[22px] transition",
         )}
-        onClick={() => handleAddToCart()}
+        onClick={handleAddToCart}
       >
         Add To Cart
       </button>
