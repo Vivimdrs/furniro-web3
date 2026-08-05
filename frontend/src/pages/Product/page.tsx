@@ -7,6 +7,8 @@ import Container from "../../components/Container";
 import SingleProductImages from "../../components/SingleProductImages";
 import SingleProductCard from "../../components/SingleProductCard";
 import clsx from "clsx";
+import SingleProductCardAdditional from "../../SingleProductCardAdditional";
+import OurProducts from "../../components/OurProducts";
 const products: Product[] = seedProducts.map((product) => ({
   ...product,
   createdAt: new Date(product.createdAt),
@@ -24,14 +26,28 @@ const Product = () => {
   }
 
   return (
-    <Container>
-      <div className={clsx("flex gap-26.5 justify-center flex-wrap-reverse md:px-0 px-2")}>
-        <SingleProductImages
-          images={currentProduct.images}
-        ></SingleProductImages>
-        <SingleProductCard produto={currentProduct}></SingleProductCard>
-      </div>
-    </Container>
+    <div>
+      <Container className={clsx("border-b border-[#9f9f9f]")}>
+        <div
+          className={clsx(
+            "flex gap-26.5 justify-center flex-wrap-reverse md:px-0 px-2 pt-8.75 pb-15",
+          )}
+        >
+          <SingleProductImages
+            images={currentProduct.images}
+          ></SingleProductImages>
+          <SingleProductCard produto={currentProduct}></SingleProductCard>
+        </div>
+      </Container>
+      <Container className={clsx("border-b border-[#9f9f9f]")}>
+        <SingleProductCardAdditional
+          produto={currentProduct}
+        ></SingleProductCardAdditional>
+      </Container>
+      <Container className={clsx("py-10")}>
+        <OurProducts title="Related Products" font="font-semibold"></OurProducts>
+      </Container>
+    </div>
   );
 };
 

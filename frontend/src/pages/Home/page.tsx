@@ -15,7 +15,7 @@ const Home = () => {
         <Categories></Categories>
       </Container>
       <Container>
-        <OurProducts></OurProducts>
+        <OurProducts title="Our Products" font="font-bold"></OurProducts>
       </Container>
       <Container className="bg-inspiration">
         <Inspiration></Inspiration>
