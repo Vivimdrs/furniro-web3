@@ -30,9 +30,9 @@ const Categories = () => {
         </p>
       </div>
       <div className={clsx("flex gap-5 flex-wrap justify-center")}>
-        <CategoriesCard image={Categorie1} label="Dining"></CategoriesCard>
-        <CategoriesCard image={Categorie2} label="Living"></CategoriesCard>
-        <CategoriesCard image={Categorie3} label="Bedroom"></CategoriesCard>
+        <CategoriesCard image={Categorie1} label="Dining" to="/shop?category=dining" />
+        <CategoriesCard image={Categorie2} label="Living" to="/shop?category=living" />
+        <CategoriesCard image={Categorie3} label="Bedroom" to="/shop?category=bedroom" />
       </div>
     </div>
   );
