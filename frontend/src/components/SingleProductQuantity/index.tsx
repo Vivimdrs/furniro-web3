@@ -50,7 +50,7 @@ const SingleProductQuantity = ({
           "border-[#9F9F9F] border",
           "rounded-[15px]",
           "text-[20px]",
-          "cursor-pointer hover:text-[22px] transition",
+          "cursor-pointer hover:transform hover:scale-105 transition",
         )}
         onClick={() => handleAddToCart()}
       >
