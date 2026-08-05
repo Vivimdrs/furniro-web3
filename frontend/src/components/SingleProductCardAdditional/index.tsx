@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type Product from "../interface/Product";
+import type Product from "../../interface/Product";
 import clsx from "clsx";
 
 const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
