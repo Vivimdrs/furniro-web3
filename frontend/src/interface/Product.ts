@@ -15,6 +15,7 @@ export default interface Product {
   sizes: string[];
   images: string[];
   sku: string;
-  createdAt: Date;
-  updatedAt: Date;
+  additionalInfo:string;
+  createdAt: Date | string;
+  updatedAt: Date | string;
 }
