@@ -9,6 +9,7 @@ import OurProductsCard from "../../components/OurProductsCard";
 import { isValidCategory } from "../../utils/validCategories";
 import { getProducts } from "../../services/product.service";
 import type Product from "../../interface/Product";
+import FilterBar from "../../components/FilterBar";
 
 const Shop = () => {
     const { category } = useParams<{ category?: string }>();
@@ -18,7 +19,9 @@ const Shop = () => {
     const categoryIsValid = !category || isValidCategory(category);
 
     const page = Number(searchParams.get("page")) || 1;
+    const limit = Number(searchParams.get("limit")) || 16;
     const sort = searchParams.get("sort") as "price_asc" | "price_desc" | null;
+
 
     const [products, setProducts] = useState<Product[]>([]);
     const [totalPages, setTotalPages] = useState(1);
@@ -43,6 +46,7 @@ const Shop = () => {
                 const data = await getProducts({
                     category,
                     page,
+                    limit,
                     sort: sort ?? undefined,
                 });
                 setProducts(data.products);
@@ -55,13 +59,19 @@ const Shop = () => {
         }
 
         fetchProducts();
-    }, [category, categoryIsValid, page, sort]);
+    }, [category, categoryIsValid, page, limit, sort]);
 
     return (
         <div>
             <BannerCard
                 title="Shop"
                 breadcrumbs={[{ label: "Home", href: "/" }, { label: "Shop" }]}
+            />
+
+            <FilterBar 
+            totalResults={products.length} 
+            currentPage={page}
+            currentLimit={limit}
             />
 
             <Container className="py-16 px-4">
