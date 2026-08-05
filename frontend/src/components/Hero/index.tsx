@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import HeroButton from "../HeroButton";
+import {Link} from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -49,7 +50,9 @@ const Hero = () => {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
           tellus, luctus nec ullamcorper mattis.
         </p>
-        <HeroButton label="Buy Now"></HeroButton>
+        <Link to="/shop">
+          <HeroButton label="Buy Now"></HeroButton>
+        </Link>
       </div>
     </div>
   );

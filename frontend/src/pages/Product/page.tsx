@@ -1,29 +1,39 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import type Product from "../../interface/Product";
-
-// Requisição ainda sem banco
-import seedProducts from "../../db/Seed/Seed.json";
 import Container from "../../components/Container";
 import SingleProductImages from "../../components/SingleProductImages";
 import SingleProductCard from "../../components/SingleProductCard";
 import clsx from "clsx";
 import SingleProductCardAdditional from "../../SingleProductCardAdditional";
 import OurProducts from "../../components/OurProducts";
-const products: Product[] = seedProducts.map((product) => ({
-  ...product,
-  createdAt: new Date(product.createdAt),
-  updatedAt: new Date(product.updatedAt),
-}));
+import LoadingSpinner from "../../components/LoadingSpinner";
+import NotFound from "../../components/NotFound";
 
-const Product = () => {
+const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
+
+const ProductPage = () => {
   const { slug } = useParams();
+  const [product, setProduct] = useState<Product | null>(null);
+  const [notFound, setNotFound] = useState(false);
 
-  // Requisição ainda sem banco
-  const currentProduct = products.find((p) => p.slug === slug);
+  useEffect(() => {
+    if (!slug) return;
+    fetch(`${API_URL}/products/${slug}`)
+      .then((res) => {
+        if (!res.ok) { 
+          setNotFound(true); 
+          return null; 
+        }
+        return res.json();
+      })
+      .then((data) => { 
+        if (data) setProduct(data); 
+      });
+  }, [slug]);
 
-  if (!currentProduct) {
-    return <h1>Produto não encontrado</h1>;
-  }
+  if (notFound) return <NotFound />;
+  if (!product) return <LoadingSpinner />;
 
   return (
     <div>
@@ -33,22 +43,18 @@ const Product = () => {
             "flex gap-26.5 justify-center flex-wrap-reverse md:px-0 px-2 pt-8.75 pb-15",
           )}
         >
-          <SingleProductImages
-            images={currentProduct.images}
-          ></SingleProductImages>
-          <SingleProductCard produto={currentProduct}></SingleProductCard>
+          <SingleProductImages images={product.images} />
+          <SingleProductCard produto={product} />
         </div>
       </Container>
       <Container className={clsx("border-b border-[#9f9f9f]")}>
-        <SingleProductCardAdditional
-          produto={currentProduct}
-        ></SingleProductCardAdditional>
+        <SingleProductCardAdditional produto={product} />
       </Container>
       <Container className={clsx("py-10")}>
-        <OurProducts title="Related Products" font="font-semibold"></OurProducts>
+        <OurProducts title="Related Products" font="font-semibold" />
       </Container>
     </div>
   );
 };
 
-export default Product;
+export default ProductPage;
