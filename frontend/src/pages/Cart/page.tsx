@@ -1,4 +1,4 @@
-﻿import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AiOutlineDelete } from "react-icons/ai";
 import clsx from "clsx";
 import Container from "../../components/Container";
@@ -48,7 +48,7 @@ const Cart = () => {
                             <div className="bg-white xl:min-w-[817px]">
                                 <div
                                     className={clsx(
-                                        "hidden h-[55px] grid-cols-[142px_177px_156px_106px_162px_74px] items-center bg-[#F9F1E7] text-[16px] font-medium text-black xl:grid",
+                                        "hidden h-[55px] grid-cols-[142px_177px_156px_106px_162px_74px] pl-4 items-center bg-[#F9F1E7] text-[16px] font-medium text-black xl:grid",
                                     )}>
                                     <div />
                                     <div>Product</div>
@@ -81,7 +81,7 @@ const Cart = () => {
                                                 <div
                                                     key={item.id}
                                                     className={clsx(
-                                                        "relative grid min-h-[145px] max-w-full grid-cols-[88px_minmax(0,1fr)] gap-x-3 gap-y-2 rounded-[10px] border border-[#F0E7DB] bg-white p-3 pr-12 text-[14px] sm:grid-cols-[105px_minmax(0,1fr)] sm:text-[16px] xl:min-h-[105px] xl:grid-cols-[142px_177px_156px_106px_162px_74px] xl:gap-0 xl:rounded-none xl:border-0 xl:p-0",
+                                                        "relative grid min-h-[145px] max-w-full grid-cols-[88px_minmax(0,1fr)] justify-center items-center gap-x-3 gap-y-2 rounded-[10px] border border-[#F0E7DB] bg-white p-3 pr-12 text-[14px] sm:grid-cols-[105px_minmax(0,1fr)] sm:text-[16px] xl:min-h-[105px] xl:grid-cols-[142px_177px_156px_106px_162px_74px] xl:gap-0 xl:rounded-none xl:border-0 xl:p-0",
                                                     )}>
                                                     <div className="row-span-4 flex h-[88px] w-[88px] items-center justify-center self-start sm:h-[105px] sm:w-[105px] xl:row-auto xl:self-center">
                                                         <img
@@ -98,20 +98,7 @@ const Cart = () => {
                                                         <p className="font-medium text-black xl:font-normal xl:text-[#9F9F9F]">
                                                             {item.name}
                                                         </p>
-                                                        <div className="mt-1 flex items-center gap-2 text-[12px] text-[#9F9F9F]">
-                                                            <span
-                                                                className="h-3 w-3 rounded-full border border-black/10"
-                                                                style={{
-                                                                    backgroundColor:
-                                                                        item.color,
-                                                                }}
-                                                                aria-label={`Color ${item.color}`}
-                                                            />
-                                                            <span>
-                                                                {item.size.toUpperCase()}
-                                                            </span>
-                                                        </div>
-                                                    </div>
+                                              </div>
 
                                                     <div className="col-start-2 row-start-2 text-[#9F9F9F] xl:col-auto xl:row-auto">
                                                         <span className="mr-1 xl:hidden">
@@ -163,7 +150,7 @@ const Cart = () => {
                                                         </button>
                                                     </div>
 
-                                                    <div className="col-start-2 row-start-4 font-medium text-black xl:col-auto xl:row-auto xl:font-normal">
+                                                    <div className="col-start-2 row-start-4 pl-5 font-medium text-black xl:col-auto xl:row-auto xl:font-normal">
                                                         <span className="mr-1 text-[#9F9F9F] xl:hidden">
                                                             Subtotal:
                                                         </span>
