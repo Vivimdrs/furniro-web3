@@ -65,44 +65,51 @@ const Shop = () => {
 
     return (
         <div>
-            <BannerCard
-                title="Shop"
-                breadcrumbs={[{ label: "Home", href: "/" }, { label: "Shop" }]}
-            />
+            <Container>
+                <BannerCard
+                    title="Shop"
+                    breadcrumbs={[
+                        { label: "Home", href: "/" },
+                        { label: "Shop" },
+                    ]}
+                />
 
-            <FilterBar
-                totalResults={total}
-                currentPage={page}
-                currentLimit={limit}
-            />
+                <FilterBar
+                    totalResults={total}
+                    currentPage={page}
+                    currentLimit={limit}
+                />
+            </Container>
 
             <Container className="py-16 px-4">
                 {loading && <LoadingSpinner />}
 
                 {!loading && error && (
-                    <p className="text-center">
+                    <p>
                         Something went wrong while loading products. Please try
                         again.
                     </p>
                 )}
 
                 {!loading && !error && products.length === 0 && (
-                    <p className="text-center">No products found.</p>
+                    <p>No products found.</p>
                 )}
 
                 {!loading && !error && products.length > 0 && (
                     <>
                         <div
                             className={clsx(
-                                "max-w-309 w-full mx-auto",
+                                "max-w-[1240px] w-full mx-auto",
                                 "flex gap-8 flex-wrap justify-center",
                             )}>
                             {products.map((product) => (
                                 <OurProductsCard
                                     key={product.id}
-                                    produto={product}></OurProductsCard>
+                                    produto={product}
+                                />
                             ))}
                         </div>
+
                         <p className="text-center mt-8 text-sm text-over-card-product">
                             Page {page} of {totalPages}
                         </p>
@@ -110,7 +117,9 @@ const Shop = () => {
                 )}
             </Container>
 
-            <BenefitsCard />
+            <Container>
+                <BenefitsCard />
+            </Container>
         </div>
     );
 };
