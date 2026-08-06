@@ -7,6 +7,8 @@ import { useState } from "react";
 import SingleProductColor from "../SingleProductColor";
 import SingleProductQuantity from "../SingleProductQuantity";
 
+const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
+
 type SingleProductCardProps = {
   produto: Product;
 };
@@ -63,7 +65,10 @@ const SingleProductCard = ({ produto }: SingleProductCardProps) => {
     (produto.price + (produto.price * (sizePrice[productStages.size.toLowerCase()] ?? 0)) / 100) *
     productStages.quantity;
   const priceWithSize =
-    produto.price + (produto.price * sizePrice[productStages.size]) / 100;
+    produto.price +
+    (produto.price *
+      (sizePrice[productStages.size.toLowerCase()] ?? 0)) /
+      100;
 
   return (
     <div className={clsx("font-poppins", "max-w-150 md:w-full")}>
@@ -109,6 +114,9 @@ const SingleProductCard = ({ produto }: SingleProductCardProps) => {
         handleMinusQuantity={handleMinusQuantity}
         SingleProductCartProps={{
           ...productStages,
+          image: productStages.image.startsWith("http")
+            ? productStages.image
+            : `${API_URL}${productStages.image}`,
           productId: produto.id,
           slug: produto.slug,
           price: priceWithSize,
