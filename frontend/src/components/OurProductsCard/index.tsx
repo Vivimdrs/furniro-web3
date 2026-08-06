@@ -5,6 +5,8 @@ import like from "/Icons/like.svg";
 import type Product from "../../interface/Product";
 import { Link } from "react-router-dom";
 import NumberToStringRP from "../../utils/NumberToStringRP";
+import toast from "react-hot-toast";
+import { useCartStore } from "../../context/cartStore";
 
 const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
@@ -94,8 +96,24 @@ const OurProductsCard = ({produto}:OurProductsCardProp) => {
             "h-12 w-55.25",
             "z-20",
             "text-over-secundary text-[16px] font-semibold font-poppins",
-            "hover:bg-over-secundary hover:text-secundary transition cursor-pointer"
+            "hover:bg-over-secundary hover:text-secundary transition cursor-pointer",
           )}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            useCartStore.getState().addItem({
+              productId: produto.id,
+              name: produto.name,
+              slug: produto.slug,
+              image: produto.images[0],
+              color: produto.colors[0],
+              size: produto.sizes[0],
+              quantity: 1,
+              price: produto.price,
+              discountPrice: produto.discountPrice,
+            });
+            toast.success(`${produto.name} added to cart.`);
+          }}
         >
           Add to cart
         </button>

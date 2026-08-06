@@ -40,7 +40,7 @@ const ProductPage = () => {
            <Container className={clsx("bg-[#F9F1E7] w-max-[144px] h-25 flex items-center justify-center px-2 md:px-0")}>
               <MenuSingleProduct productName={product.name} />
             </Container>  
-            <Container className={clsx("border-b border-[#9f9f9f]")}>
+            <Container className={clsx("border-b border-[#D9D9D9]")}>
                 <div
                     className={clsx(
                         "flex gap-26.5 justify-center flex-wrap-reverse md:px-0 px-2 pt-8.75 pb-15",
@@ -49,7 +49,7 @@ const ProductPage = () => {
                     <SingleProductCard produto={product} />
                 </div>
             </Container>
-            <Container className={clsx("border-b border-[#9f9f9f]")}>
+            <Container className={clsx("border-b border-[#D9D9D9]")}>
                 <SingleProductCardAdditional produto={product} />
             </Container>
             <Container className={clsx("py-10")}>

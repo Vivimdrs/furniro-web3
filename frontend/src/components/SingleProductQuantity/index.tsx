@@ -2,6 +2,7 @@
 
 import type { AddCartItem } from "../../context/cartStore";
 import { useCart } from "../../context/useCart";
+import toast from "react-hot-toast";
 
 type SingleProductQuantityProps = {
   currentQuantity: number;
@@ -73,7 +74,12 @@ const SingleProductQuantity = ({
           "text-[20px]",
           "cursor-pointer hover:transform hover:scale-105 transition",
         )}
-        onClick={handleAddToCart}
+        onClick={(e)=>{
+          e.preventDefault();
+          e.stopPropagation();
+          toast.success(`${SingleProductCartProps.name} added to cart.`);
+          handleAddToCart()
+        }}
       >
         Add To Cart
       </button>
