@@ -7,6 +7,7 @@ import { Route, Routes } from "react-router-dom";
 import Product from "./pages/Product/page";
 import Shop from "./pages/Shop/page";
 import Cart from "./pages/Cart/page";
+import NotFoundPage from "./pages/NotFoundPage";
 
 const App = () => {
     return (
@@ -21,6 +22,7 @@ const App = () => {
                 <Route path="/shop/:category?" element={<Shop />} />
                 <Route path="/product/:slug" element={<Product />} />
                 <Route path="/cart" element={<Cart />} />
+                <Route path="*" element={<NotFoundPage />} />
             </Routes>
             <Container className="bg-primary border-t border-t-[rgba(0,0,0,0.17)]">
                 <Footer />
