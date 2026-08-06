@@ -6,10 +6,11 @@ import Container from "../../components/Container";
 import BannerCard from "../../components/BannerCard";
 import BenefitsCard from "../../components/BenefitsCard";
 import OurProductsCard from "../../components/OurProductsCard";
+import FilterBar from "../../components/FilterBar";
+import LoadingSpinner from "../../components/LoadingSpinner";
 import { isValidCategory } from "../../utils/validCategories";
 import { getProducts } from "../../services/product.service";
 import type Product from "../../interface/Product";
-import FilterBar from "../../components/FilterBar";
 
 const Shop = () => {
     const { category } = useParams<{ category?: string }>();
@@ -22,8 +23,8 @@ const Shop = () => {
     const limit = Number(searchParams.get("limit")) || 16;
     const sort = searchParams.get("sort") as "price_asc" | "price_desc" | null;
 
-
     const [products, setProducts] = useState<Product[]>([]);
+    const [total, setTotal] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -50,6 +51,7 @@ const Shop = () => {
                     sort: sort ?? undefined,
                 });
                 setProducts(data.products);
+                setTotal(data.total);
                 setTotalPages(data.totalPages);
             } catch {
                 setError(true);
@@ -68,24 +70,24 @@ const Shop = () => {
                 breadcrumbs={[{ label: "Home", href: "/" }, { label: "Shop" }]}
             />
 
-            <FilterBar 
-            totalResults={products.length} 
-            currentPage={page}
-            currentLimit={limit}
+            <FilterBar
+                totalResults={total}
+                currentPage={page}
+                currentLimit={limit}
             />
 
             <Container className="py-16 px-4">
-                {loading && <p>Loading products...</p>}
+                {loading && <LoadingSpinner />}
 
                 {!loading && error && (
-                    <p>
+                    <p className="text-center">
                         Something went wrong while loading products. Please try
                         again.
                     </p>
                 )}
 
                 {!loading && !error && products.length === 0 && (
-                    <p>No products found.</p>
+                    <p className="text-center">No products found.</p>
                 )}
 
                 {!loading && !error && products.length > 0 && (
