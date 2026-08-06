@@ -395,3 +395,11 @@ npm run dev
 - [Instagram Compass UOL](https://www.instagram.com/compass.uol/)
 - [Twitter Compass UOL](https://x.com/compassuol)
 - [LinkedIn Compass UOL](https://www.linkedin.com/company/compass-uol/posts/?feedView=all)
+
+## Autores
+
+- Eros Franklin - https://github.com/ErosFranklin
+- Filipe Wanderley - https://github.com/filipe-wanderley
+- João Victor - https://github.com/VictorM-Dev
+- Lucas Trindade - https://github.com/lucastrdd
+- Vitória Medeiros - https://github.com/Vivimdrs
