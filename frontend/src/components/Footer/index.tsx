@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import {Link} from "react-router-dom";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -11,7 +12,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className={clsx("min-h-[505px] w-full px-4 pb-9.5 pt-12 font-poppins leading-normal lg:px-[100px]")}>
+    <footer className={clsx("min-h-126.5 w-full px-4 pb-9.5 pt-12 font-poppins leading-normal lg:px-25")}>
       <div
         className={clsx(
           "grid gap-10 md:grid-cols-2 lg:grid-cols-[393px_177px_177px_minmax(0,1fr)]",
@@ -42,10 +43,10 @@ const Footer = () => {
               "flex flex-col gap-11.5",
             )}
           >
-            <a>Home</a>
-            <a>Shop</a>
-            <a>About</a>
-            <a>Contact</a>
+            <Link to="/">Home</Link>
+            <Link to="/shop">Shop</Link>
+            <Link to="#">About</Link>
+            <Link to="#">Contact</Link>
           </div>
         </div>
         <div>

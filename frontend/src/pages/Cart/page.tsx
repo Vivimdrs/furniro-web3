@@ -7,6 +7,11 @@ import { useCart } from "../../context/useCart";
 import toast from "react-hot-toast";
 import BannerCard from "../../components/BannerCard";
 
+const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
+
+const getImageUrl = (image: string) =>
+  image.startsWith("http") ? image : `${API_URL}${image}`;
+
 const formatRs = (value: number) =>
   new Intl.NumberFormat("en-US", {
     minimumFractionDigits: 2,
@@ -78,7 +83,7 @@ const Cart = () => {
                         >
                           <div className="row-span-4 flex h-[88px] w-[88px] items-center justify-center self-start sm:h-[105px] sm:w-[105px] xl:row-auto xl:self-center">
                             <img
-                              src={item.image}
+                              src={getImageUrl(item.image)}
                               alt={item.name}
                               className={clsx(
                                 "h-[82px] w-[88px] object-contain sm:h-[95px] sm:w-[105px]",
@@ -116,7 +121,7 @@ const Cart = () => {
                                 updateQuantity(item.id, item.quantity - 1)
                               }
                               className={clsx(
-                                "flex h-full w-6 items-center justify-center text-[16px] hover:text-[#B88E2F]",
+                                "flex h-full w-6 cursor-pointer items-center justify-center text-[16px] hover:text-[#B88E2F]",
                               )}
                             >
                               -
@@ -135,7 +140,7 @@ const Cart = () => {
                                 updateQuantity(item.id, item.quantity + 1)
                               }
                               className={clsx(
-                                "flex h-full w-6 items-center justify-center text-[16px] hover:text-[#B88E2F]",
+                                "flex h-full w-6 cursor-pointer items-center justify-center text-[16px] hover:text-[#B88E2F]",
                               )}
                             >
                               +
@@ -154,7 +159,7 @@ const Cart = () => {
                             aria-label="Remove item"
                             onClick={() => removeItem(item.id)}
                             className={clsx(
-                              "absolute right-2 top-2 flex h-10 w-10 items-center justify-center text-[#B88E2F] transition hover:bg-[#F8E6C5] xl:static xl:col-auto xl:row-auto",
+                              "absolute right-2 top-2 flex h-10 w-10 cursor-pointer items-center justify-center text-[#B88E2F] transition hover:bg-[#F8E6C5] xl:static xl:col-auto xl:row-auto",
                             )}
                           >
                             <AiOutlineDelete size={28} />
@@ -193,7 +198,7 @@ const Cart = () => {
                     toast.success("check-out realizado com sucesso!");
                   }}
                   className={clsx(
-                    "mx-auto mt-[50px] inline-flex h-[59px] w-full max-w-[222px] items-center justify-center rounded-[15px] border border-black bg-transparent text-[20px] text-black transition hover:bg-white/50",
+                    "mx-auto mt-[50px] inline-flex h-[59px] w-full max-w-[222px] cursor-pointer items-center justify-center rounded-[15px] border border-black bg-transparent text-[20px] text-black transition hover:bg-white/50",
                     items.length === 0 && "opacity-50 cursor-not-allowed",
                   )}
                 >
