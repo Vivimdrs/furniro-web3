@@ -3,6 +3,7 @@ import cors from "cors";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 import { productRoutes } from "./routes/products.routes.js";
+import { authRoutes } from './routes/auth.routes.js'; 
 import { errorMiddleware } from "./middlewares/error.middleware.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use('/images', express.static(join(__dirname, 'public/images')));
 
 app.use('/products', productRoutes);
+app.use('/', authRoutes);
 
 app.use(errorMiddleware);
 
