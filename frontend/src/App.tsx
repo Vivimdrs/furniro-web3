@@ -8,25 +8,34 @@ import Product from "./pages/Product/page";
 import Shop from "./pages/Shop/page";
 import Cart from "./pages/Cart/page";
 import NotFoundPage from "./pages/NotFoundPage";
+import SignUp from "./pages/Auth/Singup";
+import Login from "./pages/Auth/Login";
 
 const App = () => {
+
+    const isAuthPage = location.pathname === "/login" || location.pathname === "/signup";
+
     return (
         <>
             <Toaster />
-
-            <Container className="bg-[#FFF]">
-                <Header />
-            </Container>
+            {!isAuthPage && (
+                <Container className="bg-[#FFF]">
+                    <Header />
+                </Container>
+            )}
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/shop/:category?" element={<Shop />} />
                 <Route path="/product/:slug" element={<Product />} />
                 <Route path="/cart" element={<Cart />} />
-                <Route path="*" element={<NotFoundPage />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
             </Routes>
-            <Container className="bg-primary border-t border-t-[rgba(0,0,0,0.17)]">
-                <Footer />
-            </Container>
+            {!isAuthPage && (
+                <Container className="bg-primary border-t border-t-[rgba(0,0,0,0.17)]">
+                    <Footer />
+                </Container>
+            )}
         </>
     );
 };
