@@ -3,7 +3,7 @@ import Container from "./components/Container";
 import Header from "./components/Header";
 import Home from "./pages/Home/page";
 import Footer from "./components/Footer";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Product from "./pages/Product/page";
 import Shop from "./pages/Shop/page";
 import Cart from "./pages/Cart/page";
@@ -12,7 +12,7 @@ import SignUp from "./pages/Auth/Singup";
 import Login from "./pages/Auth/Login";
 
 const App = () => {
-
+    const location = useLocation();
     const isAuthPage = location.pathname === "/login" || location.pathname === "/signup";
 
     return (
