@@ -20,17 +20,13 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
 };
 
 const App = () => {
-    const location = useLocation();
-    const isAuthPage = location.pathname === "/login" || location.pathname === "/signup";
-
     return (
         <>
             <Toaster />
-            {!isAuthPage && (
-                <Container className="bg-[#FFF]">
-                    <Header />
-                </Container>
-            )}
+
+            <Container className="bg-[#FFF]">
+                <Header />
+            </Container>
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/shop/:category?" element={<Shop />} />
@@ -49,11 +45,9 @@ const App = () => {
                 />
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
-            {!isAuthPage && (
-                <Container className="bg-primary border-t border-t-[rgba(0,0,0,0.17)]">
-                    <Footer />
-                </Container>
-            )}
+            <Container className="bg-primary border-t border-t-[rgba(0,0,0,0.17)]">
+                <Footer />
+            </Container>
         </>
     );
 };
