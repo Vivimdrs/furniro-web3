@@ -26,9 +26,10 @@ const Login = () => {
     const onSubmit = async (data: LoginFormData) => {
         try {
             setLoading(true);
-            await loginService(data);
+            const response = await loginService(data);
+            localStorage.setItem("token", response.token);
             toast.success("Login realizado com sucesso!");
-            navigate(from, { replace: true });
+            navigate(from, { replace: true })
         } catch (err: any) {
             toast.error(err.response?.data?.error || "E-mail ou senha inválidos.");
         } finally {
