@@ -3,11 +3,21 @@ import Container from "./components/Container";
 import Header from "./components/Header";
 import Home from "./pages/Home/page";
 import Footer from "./components/Footer";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Product from "./pages/Product/page";
 import Shop from "./pages/Shop/page";
 import Cart from "./pages/Cart/page";
 import NotFoundPage from "./pages/NotFoundPage";
+import SignUp from "./pages/Auth/Singup";
+import Login from "./pages/Auth/Login";
+import Contact from "./pages/Contact/page"; 
+import type { JSX } from "react/jsx-runtime";
+
+const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+    const isAuthenticated = !!localStorage.getItem("token");
+
+    return isAuthenticated ? children : <Navigate to="/login" replace />;
+};
 
 const App = () => {
     return (
@@ -22,6 +32,17 @@ const App = () => {
                 <Route path="/shop/:category?" element={<Shop />} />
                 <Route path="/product/:slug" element={<Product />} />
                 <Route path="/cart" element={<Cart />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
+
+                <Route 
+                    path="/contact" 
+                    element={
+                        <ProtectedRoute>
+                            <Contact />
+                        </ProtectedRoute>
+                    } 
+                />
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
             <Container className="bg-primary border-t border-t-[rgba(0,0,0,0.17)]">
