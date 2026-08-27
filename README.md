@@ -80,7 +80,8 @@ frontend/src/
 
 ├── context/
 │   ├── cartStore.ts          # Store Zustand do carrinho
-│   └── useCart.ts            # Hook de acesso ao carrinho
+│   └── useCart.ts
+│   └── authStore.ts            # Hook de acesso ao carrinho
 ├── interface/                # Tipos TypeScript compartilhados
 ├── pages/
 │   ├── Home/page.tsx
