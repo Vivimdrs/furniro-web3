@@ -1,10 +1,16 @@
 import clsx from "clsx";
 import { Link } from "react-router-dom";
+import { useCart } from "../../context/cartStore";
 
 type RightMenuProps = {
     className?: string;
 };
 const RightMenu = ({ className }: RightMenuProps) => {
+    const openCart = useCart((state) => state.openCart);
+    const items = useCart((state) => state.items);
+
+    const totalItems = items.reduce((acc, item) => acc + item.quantity, 0);
+
     const LinkHover: string = "hover:cursor-pointer hover:scale-110 transition";
     return (
         <div className={clsx("flex gap-[33.66px]", className)}>
@@ -17,14 +23,23 @@ const RightMenu = ({ className }: RightMenuProps) => {
                 />
             </Link>
 
-            {/* Ícone do Carrinho (Já existente) */}
-            <Link to="/cart" className={clsx(LinkHover)} aria-label="Ir para o carrinho">
+            <button 
+                onClick={openCart} 
+                className={clsx(LinkHover, "relative bg-transparent border-none p-0 flex items-center")}
+                aria-label="Abrir carrinho"
+            >
                 <img
                     src="/Icons/shop.svg"
                     alt="Ícone do carrinho"
                     className="max-h-[22.05px]"
                 />
-            </Link>
+                
+                {totalItems > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-[#B88E2F] text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                        {totalItems}
+                    </span>
+                )}
+            </button>
         </div>
     );
 };

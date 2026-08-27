@@ -18,6 +18,9 @@ export type AddCartItem = Omit<CartItem, "id">;
 
 type CartStore = {
   items: CartItem[];
+  isCartOpen: boolean;                   
+  openCart: () => void;                  
+  closeCart: () => void;
   addItem: (item: AddCartItem) => void;
   updateQuantity: (id: string, quantity: number) => void;
   removeItem: (id: string) => void;
@@ -30,6 +33,10 @@ export const useCartStore = create<CartStore>()(
   persist(
     (set) => ({
       items: [],
+      isCartOpen: false,
+
+      openCart: () => set({ isCartOpen: true }),
+      closeCart: () => set({ isCartOpen: false }),
 
       addItem: (item) =>
         set((state) => {
@@ -38,6 +45,7 @@ export const useCartStore = create<CartStore>()(
 
           if (existingItem) {
             return {
+              isCartOpen: true,
               items: state.items.map((current) =>
                 current.id === id
                   ? {
@@ -51,7 +59,9 @@ export const useCartStore = create<CartStore>()(
             };
           }
 
-          return { items: [...state.items, { ...item, id }] };
+          return { 
+            isCartOpen: true,
+            items: [...state.items, { ...item, id }] };
         }),
 
       updateQuantity: (id, quantity) =>
@@ -74,3 +84,6 @@ export const useCartStore = create<CartStore>()(
     },
   ),
 );
+export const useCart = <T>(selector: (state: CartStore) => T): T => {
+  return useCartStore(selector);
+};
