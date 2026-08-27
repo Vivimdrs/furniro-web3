@@ -105,7 +105,7 @@ const OurProductsCard = ({produto}:OurProductsCardProp) => {
               productId: produto.id,
               name: produto.name,
               slug: produto.slug,
-              image: produto.images[0],
+              image: `${API_URL}${produto.images[0]}`,
               color: produto.colors[0],
               size: produto.sizes[0],
               quantity: 1,
@@ -118,7 +118,7 @@ const OurProductsCard = ({produto}:OurProductsCardProp) => {
           Add to cart
         </button>
         <nav className={clsx("z-20", "flex justify-between items-center", "w-full px-4")}>
-          <a
+          <button
             className={clsx(
               "text-primary text-[16px] font-poppins font-semibold",
               "flex gap-px",
@@ -127,8 +127,8 @@ const OurProductsCard = ({produto}:OurProductsCardProp) => {
           >
             <img src={share} />
             Share
-          </a>
-          <a
+          </button>
+          <button
             className={clsx(
               "text-primary text-[16px] font-poppins font-semibold",
               "flex gap-px",
@@ -137,8 +137,8 @@ const OurProductsCard = ({produto}:OurProductsCardProp) => {
           >
             <img src={compare} />
             Compare
-          </a>
-          <a
+          </button>
+          <button
             className={clsx(
               "text-primary text-[16px] font-poppins font-semibold",
               "flex gap-px",
@@ -147,7 +147,7 @@ const OurProductsCard = ({produto}:OurProductsCardProp) => {
           >
             <img src={like} />
             Like
-          </a>
+          </button>
         </nav>
       </div>
     </Link>

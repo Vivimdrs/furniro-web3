@@ -32,6 +32,9 @@ A aplicação é composta por quatro páginas principais:
 - **Shop** — listagem completa de produtos com filtros, paginação e categorias
 - **Product** — página dinâmica de produto individual via slug
 - **Cart** — carrinho de compras persistido no localStorage
+- **Checkout** — página de finalização de pedidos e pagamento
+- **Login / Cadastro** — telas de autenticação e registro de usuários
+- **Contact** — página de suporte e contato com a loja
 
 ---
 
@@ -72,20 +75,29 @@ frontend/src/
 │   ├── SingleProductImages/  # Galeria de imagens do produto
 │   ├── BannerCard/           # Banner de topo das páginas internas
 │   ├── BreadCrumb/           # Navegação de breadcrumb (usado internamente pelo BannerCard)
+|   ├── CartSidebar/        # Gaveta lateral interativa do carrinho
 │   └── ...                   # Demais componentes auxiliares
+
 ├── context/
 │   ├── cartStore.ts          # Store Zustand do carrinho
-│   └── useCart.ts            # Hook de acesso ao carrinho
+│   └── useCart.ts
+│   └── authStore.ts            # Hook de acesso ao carrinho
 ├── interface/                # Tipos TypeScript compartilhados
 ├── pages/
 │   ├── Home/page.tsx
 │   ├── Shop/page.tsx
 │   ├── Product/page.tsx
 │   ├── Cart/page.tsx
+│   ├── Checkout/page.tsx
+│   ├── Login/page.tsx
+│   ├── Signup/page.tsx
+│   ├── Contact/page.tsx
 │   └── NotFoundPage/
 ├── services/
 │   ├── api.ts                # Instância Axios configurada
-│   └── product.service.ts    # Chamadas à API de produtos
+│   └── product.service.ts
+│   └── auth.service.ts
+│   └── viaCep.ts    # Chamadas à API de produtos
 └── utils/                    # Funções utilitárias
 ```
 
@@ -135,6 +147,17 @@ Enquanto o produto carrega, exibe um spinner. Se o slug não existir no banco, r
 #### Cart (`/cart`)
 
 Página de carrinho que lê o estado global do Zustand. Exibe os itens com controle de quantidade, remoção individual e o resumo com subtotal e total. O preço final já considera o `discountPrice` caso o produto tenha desconto.
+#### Checkout (`/checkout`)
+
+Página onde o usuário preenche os dados de entrega, endereço e método de pagamento para concluir o pedido. Integra os produtos do carrinho em um resumo detalhado dos valores totais.
+
+#### Autentitacação (`/auth`)
+
+Telas dedicadas ao acesso à conta e cadastro de novos usuários, permitindo que a experiência de compra e os dados da sessão sejam gerenciados com segurança.
+
+#### Contact (`/contact`)
+
+Página de atendimento ao cliente, contendo formulário de contato, informações de suporte, horários de funcionamento e canais oficiais da Furniro.
 
 ### Funcionalidades
 
@@ -204,100 +227,6 @@ Ao adicionar um item que já existe (mesmo produto, cor e tamanho), a quantidade
 | nodemon + tsx | Hot reload em desenvolvimento |
 | cors | Liberação de CORS para o frontend |
 
-### Estrutura Backend
-
-```
-backend/src/
-├── controllers/
-│   └── product.controller.ts   # Recebe req/res, chama o service
-├── services/
-│   └── products.service.ts     # Regras de negócio e validações
-├── repositories/
-│   ├── product.repository.ts   # Interface do repositório
-│   └── prisma.product.repository.ts  # Implementação com Prisma
-├── routes/
-│   └── products.routes.ts      # Definição das rotas
-├── middlewares/
-│   ├── error.middleware.ts         # Tratamento global de erros
-│   ├── http-exception.middleware.ts # Classes de exceção HTTP
-│   └── validation.middleware.ts    # Validação de slug e id
-├── db/seed/
-│   └── seed.ts                 # Script de seed com Faker
-├── utils/logger/
-│   └── logger.ts               # Logger com Winston
-├── app.ts                      # Configuração do Express
-└── server.ts                   # Inicialização do servidor
-```
-
-### Rotas
-
-Todas as rotas estão sob o prefixo `/products`.
-
-| Método | Rota | Descrição |
-|---|---|---|
-| `GET` | `/products` | Lista produtos com filtros e paginação |
-| `GET` | `/products/:slug` | Busca produto pelo slug |
-| `GET` | `/products/id/:id` | Busca produto pelo ID MongoDB _(implementada por requisito do desafio, não utilizada pelo frontend)_ |
-
-**Query params disponíveis em `GET /products`:**
-
-| Param | Tipo | Descrição |
-|---|---|---|
-| `category` | string | Filtra por categoria (case-insensitive) |
-| `page` | number | Página atual (padrão: 1) |
-| `limit` | number | Itens por página (padrão: 16) |
-| `sort` | string | `price_asc` ou `price_desc` |
-
-**Exemplo de resposta paginada:**
-
-```json
-{
-  "products": [...],
-  "total": 30,
-  "page": 1,
-  "limit": 16,
-  "totalPages": 2
-}
-```
-
-### Middlewares
-
-**Validação de entrada** — antes de chegar no controller, o slug e o ID passam por middlewares de validação com regex:
-
-```ts
-// Slug: nome-do-produto-0
-const slugRegex = /^[a-z0-9-]+-\d+$/
-
-// ID: ObjectId do MongoDB (24 caracteres hex)
-const uuidRegex = /^[a-f0-9]{24}$/i
-```
-
-Se a validação falhar, um `BadRequestException` é lançado antes mesmo de consultar o banco.
-
-**Tratamento de erros** — o `errorMiddleware` captura qualquer erro lançado nas camadas abaixo. Se for uma instância de `HttpException`, retorna o status e a mensagem correspondente. Caso contrário, retorna 500:
-
-```ts
-export const errorMiddleware = (error: Error, _req, res, _next) => {
-    if (error instanceof HttpException) {
-        return res.status(error.statusCode).json(error.toJSON())
-    }
-    return res.status(500).json(new InternalServerErrorException().toJSON())
-}
-```
-
-As exceções são classes que estendem `HttpException`: `BadRequestException` (400), `NotFoundException` (404), `ConflictException` (409) e `InternalServerErrorException` (500).
-
-### Seed do banco
-
-O seed usa **Faker.js** para gerar 30 produtos com dados realistas. Cada produto recebe um slug único no formato `nome-do-produto-{index}`, garantindo compatibilidade com a validação de slug do backend:
-
-```ts
-slug: `${name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}-${i}`
-```
-
-As imagens são servidas como arquivos estáticos pelo próprio Express (`/images/products/product-N.svg`) e referenciadas no banco apenas pelo path relativo. O frontend monta a URL completa concatenando com `VITE_API_URL`.
-
----
 
 ## Docker
 
@@ -334,7 +263,7 @@ Os volumes mapeiam o código local para dentro dos containers (`./backend:/app`)
 ```bash
 # Clonar o repositório
 git clone https://github.com/ErosFranklin/furniro-web2
-cd Desafio
+cd Fruniro-web2
 
 # Subir todos os serviços
 docker compose up
@@ -397,9 +326,4 @@ npm run dev
 - [LinkedIn Compass UOL](https://www.linkedin.com/company/compass-uol/posts/?feedView=all)
 
 ## Autores
-
-- Eros Franklin - https://github.com/ErosFranklin
-- Filipe Wanderley - https://github.com/filipe-wanderley
-- João Victor - https://github.com/VictorM-Dev
-- Lucas Trindade - https://github.com/lucastrdd
 - Vitória Medeiros - https://github.com/Vivimdrs

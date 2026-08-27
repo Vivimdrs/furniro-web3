@@ -22,3 +22,7 @@ export function isAuthenticated(): boolean {
     const token = localStorage.getItem("@Furniro:token");
     return !!token;
 }
+
+export function logoutService() {
+    localStorage.removeItem("@Furniro:token");
+}
