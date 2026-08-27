@@ -7,13 +7,14 @@ import { checkoutSchema, type CheckoutFormData } from "../../validations/checkou
 import { fetchAddressByCep } from "../../services/viaCep";
 import { useCart } from "../../context/cartStore";
 import NumberToStringRP from "../../utils/NumberToStringRP";
+import { useCartStore } from "../../context/cartStore"; 
 
 const Checkout = () => {
   const navigate = useNavigate();
   const [isFetchingCep, setIsFetchingCep] = useState(false);
 
   const items = useCart((state) => state.items);
-  const clearCart = useCart((state) => state.closeCart);
+  const clearCart = useCart((state) => state.clearCart);
 
   const {
     register,
