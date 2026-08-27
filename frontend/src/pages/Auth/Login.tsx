@@ -7,13 +7,21 @@ import { loginSchema, type LoginFormData } from "../../validations/auth.schema";
 import { loginService } from "../../services/auth.service";
 import AuthLayout from "../../components/AuthLayout";
 import AuthInput from "../../components/AuthInput";
+import { useAuth } from "../../context/authStore";
+
+interface LocationState {
+    from?: {
+        pathname: string;
+    };
+}
 
 const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [loading, setLoading] = useState(false);
+    const setAuthenticated = useAuth((state) => state.setAuthenticated);
 
-    const from = (location.state as any)?.from?.pathname || "/";
+    const from = (location.state as LocationState)?.from?.pathname || "/";
 
     const {
         register,
@@ -27,6 +35,7 @@ const Login = () => {
         try {
             setLoading(true);
             const response = await loginService(data);
+            setAuthenticated(true, data.email);
             localStorage.setItem("token", response.token);
             toast.success("Login realizado com sucesso!");
             navigate(from, { replace: true })

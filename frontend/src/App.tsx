@@ -12,11 +12,14 @@ import SignUp from "./pages/Auth/Singup";
 import Login from "./pages/Auth/Login";
 import Contact from "./pages/Contact/page"; 
 import type { JSX } from "react/jsx-runtime";
+import Checkout from "./pages/Checkout/page";
+import { isAuthenticated } from "./services/auth.service";
+
 
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
-    const isAuthenticated = !!localStorage.getItem("token");
+    const location = useLocation();
 
-    return isAuthenticated ? children : <Navigate to="/login" replace />;
+    return isAuthenticated() ? children : <Navigate to="/login" state={{ from: location }} replace />;
 };
 
 const App = () => {
@@ -44,6 +47,14 @@ const App = () => {
                     element={
                         <ProtectedRoute>
                             <Contact />
+                        </ProtectedRoute>
+                    } 
+                />
+                <Route 
+                    path="/checkout" 
+                    element={
+                        <ProtectedRoute>
+                            <Checkout />
                         </ProtectedRoute>
                     } 
                 />
