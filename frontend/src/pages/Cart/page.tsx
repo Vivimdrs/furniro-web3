@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { AiOutlineDelete } from "react-icons/ai";
 import clsx from "clsx";
 import Container from "../../components/Container";
@@ -6,6 +5,8 @@ import BenefitsCard from "../../components/BenefitsCard";
 import { useCart } from "../../context/useCart";
 import toast from "react-hot-toast";
 import BannerCard from "../../components/BannerCard";
+import { useNavigate, Link } from "react-router-dom";
+
 
 const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:3000";
 
@@ -19,6 +20,7 @@ const formatRs = (value: number) =>
     }).format(value);
 
 const Cart = () => {
+     const navigate = useNavigate();
     const { items, updateQuantity, removeItem } = useCart();
 
     const subtotal = items.reduce((sum, item) => {
@@ -206,17 +208,13 @@ const Cart = () => {
                                 <button
                                     type="button"
                                     disabled={items.length === 0}
-                                    onClick={() => {
-                                        toast.success(
-                                            "check-out realizado com sucesso!",
-                                        );
-                                    }}
+                                    onClick={() => navigate("/checkout")}
                                     className={clsx(
                                         "mx-auto mt-[50px] inline-flex h-[59px] w-full max-w-[222px] cursor-pointer items-center justify-center rounded-[15px] border border-black bg-transparent text-[20px] text-black transition hover:bg-white/50",
                                         items.length === 0 &&
                                             "opacity-50 cursor-not-allowed",
                                     )}>
-                                    Check Out
+                                    Checkout
                                 </button>
                             </div>
                         </aside>
